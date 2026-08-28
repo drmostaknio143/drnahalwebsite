@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #EEF2F3;
+  --surface: #FFFFFF;
+  --accent: #1F4A57;
+  --accent-2: #2F6E63;
+  --accent-soft: #D8E6E1;
+  --ink: #16232A;
+  --ink-muted: #5C6B70;
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-pill: 100px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --font-display: var(--font-sora);
+  --font-body: var(--font-jakarta);
+  --font-bengali: var(--font-hind);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), var(--font-bengali), system-ui, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-bengali), system-ui, sans-serif;
+}
+
+/* ===== glass utility ===== */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 12px 40px -20px rgba(22, 35, 42, 0.25);
+}
+
+.glass-strong {
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+}
+
+.glass-on-dark {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* ===== pill button ===== */
+.btn-pill {
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 20px;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-pill:hover {
+  transform: translateY(-1px);
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 10px 24px -10px rgba(31, 74, 87, 0.55);
+}
+.btn-ghost {
+  background: var(--glass-strong);
+  color: var(--accent);
+  border: 1.5px solid rgba(31, 74, 87, 0.25);
+}
+.btn-light {
+  background: #fff;
+  color: var(--accent);
+}
+
+/* ===== full-width color bands ===== */
+.band-teal {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  color: #fff;
+}
+.band-white {
+  background: var(--bg);
+}
+
+/* ===== scroll-reveal ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
