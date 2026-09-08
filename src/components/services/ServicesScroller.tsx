@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -236,14 +237,12 @@ export default function ServicesScroller({ lang }: { lang: Lang }) {
       <div className="mx-auto max-w-[1180px] px-6">
         <Reveal className="relative z-[100] mt-16 text-center">
           <p className="mx-auto max-w-[520px] text-[15px] font-medium text-ink-muted">{t.closingTitle}</p>
-          <a
-            href={whatsappHref(lang)}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={`/${lang}/contact`}
             className="btn-pill btn-primary mt-4 inline-flex"
           >
             {t.closingCta} <ArrowRight size={15} />
-          </a>
+          </Link>
         </Reveal>
       </div>
 
@@ -312,9 +311,9 @@ export default function ServicesScroller({ lang }: { lang: Lang }) {
               </div>
             )}
 
-            <a href={`/${lang}/contact`} className="btn-pill btn-primary mt-7 inline-flex">
+            <Link href={`/${lang}/contact`} className="btn-pill btn-primary mt-7 inline-flex">
               {active.detail.cta[lang]} <ArrowRight size={15} />
-            </a>
+            </Link>
           </div>
         </div>
       )}

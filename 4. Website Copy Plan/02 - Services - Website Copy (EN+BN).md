@@ -1,0 +1,230 @@
+# Website Copy — Batch 2: Services / Surgeries (11 total, single-page + modal structure)
+
+**STRUCTURE CHANGE (2026-08-29):** No longer 6 separate sub-pages with individual URLs. Now **one single long `/services` page** — services render as full-bleed pinned scroll-cards (GSAP ScrollTrigger pin+scrub, same pattern as the Hero eye-zoom and About Journey roadmap), one card after another as the user scrolls, on both desktop and mobile. Each card has a headline over an image; a "Read More" CTA on the card opens that service's full detail copy in an **on-page modal popup** (not a page navigation). The copy below (the "what/why/how" body per service) is exactly what goes inside that modal.
+
+**Service count also changed:** 6 → **11**. The original 6 stay as-is; 5 new services added below in their own section, matching Dr. Nahal's documented specialties (per his own stated core specialties + CV surgery list).
+
+---
+
+## PAGE: SERVICES (single long page, was "Parent/Index")
+
+**EN**
+- Eyebrow: `Services`
+- H1: `Surgical & Medical Eye Care, Under One Practice`
+- Subhead: `From routine cataract surgery to advanced retinal procedures, Dr. Nahal treats the full range of eye conditions — using the same techniques taught at international training centers in Glasgow and London.`
+- Layout: pinned scroll-cards, one per service (11 total, order TBD by user/image availability), each with a "Read More" CTA opening the modal with that service's full copy below.
+- Closing CTA: `Not sure which service you need? Call for a quick consultation.` → `Book an Appointment`
+
+**BN**
+- Eyebrow: `সার্ভিস`
+- H1: `চোখের প্রতিটি চিকিৎসা, এক জায়গায়`
+- Subhead: `সাধারণ ছানি অপারেশন থেকে শুরু করে রেটিনার জটিল সার্জারি — ডা. নাহাল চোখের প্রায় সব ধরনের সমস্যার চিকিৎসা করেন, একই পদ্ধতি ব্যবহার করে যা তিনি গ্লাসগো ও লন্ডনের আন্তর্জাতিক প্রশিক্ষণ কেন্দ্রে শিখেছেন।`
+- Closing CTA: `কোন সার্ভিস আপনার জন্য প্রযোজ্য বুঝতে পারছেন না? সরাসরি কল করে জেনে নিন।` → `অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: CATARACT SURGERY (Phacoemulsification)
+
+**EN**
+- H1: `Cataract Surgery (Phacoemulsification)`
+- Intro: `A cataract clouds the eye's natural lens, gradually blurring vision. Phacoemulsification is the modern, minimally invasive way to remove it — a small incision, an ultrasound probe to break up the cloudy lens, and a new artificial lens (IOL) put in its place.`
+- Who needs it: `Blurry or dim vision, glare from lights at night, colors looking faded, difficulty reading — especially if these have gradually worsened over months or years.`
+- How it works (steps): `1. Numbing eye drops — no general anesthesia needed.` / `2. A tiny incision (about 2–3mm) is made at the edge of the cornea.` / `3. An ultrasound probe breaks the cloudy lens into small pieces and removes them.` / `4. A folded artificial lens is inserted through the same small incision and unfolds into place.` / `5. No stitches needed in most cases — the incision self-seals.`
+- Recovery: `Most patients notice clearer vision within a day or two. Mild irritation and light sensitivity are normal for the first week; eye drops are prescribed to prevent infection and reduce inflammation. Most people resume normal activities within a few days.`
+- CTA: `Book a Cataract Consultation`
+
+**BN**
+- H1: `ছানি অপারেশন (ফ্যাকোইমালসিফিকেশন)`
+- Intro: `ছানি হলো চোখের প্রাকৃতিক লেন্স ধীরে ধীরে ঘোলাটে হয়ে যাওয়া, যার ফলে দৃষ্টি অস্পষ্ট হতে থাকে। ফ্যাকোইমালসিফিকেশন হলো আধুনিক ও ন্যূনতম কাটাছেঁড়ার একটি পদ্ধতি — ছোট্ট একটা ছিদ্র করে, আল্ট্রাসাউন্ড দিয়ে ঘোলা লেন্সটাকে ভেঙে বের করে সেখানে একটা নতুন কৃত্রিম লেন্স (IOL) বসিয়ে দেওয়া হয়।`
+- কার প্রয়োজন হতে পারে: `দৃষ্টি ঝাপসা বা ম্লান লাগা, রাতে আলোতে চোখ ধাঁধিয়ে যাওয়া, রং ফিকে মনে হওয়া, পড়তে কষ্ট হওয়া — বিশেষ করে এসব সমস্যা যদি মাস বা বছরের পর বছর ধরে ধীরে ধীরে বাড়তে থাকে।`
+- কীভাবে হয়: `১. অ্যানেস্থেসিয়ার ড্রপ দেওয়া হয় — সম্পূর্ণ অজ্ঞান করার দরকার হয় না।` / `২. কর্নিয়ার কিনারায় খুবই ছোট (প্রায় ২-৩ মিমি) একটা ছিদ্র করা হয়।` / `৩. আল্ট্রাসাউন্ড দিয়ে ঘোলা লেন্সটাকে ছোট ছোট টুকরো করে বের করে ফেলা হয়।` / `৪. একটা ভাঁজ করা কৃত্রিম লেন্স সেই একই ছিদ্র দিয়ে ভেতরে বসিয়ে দেওয়া হয়, যা নিজে থেকেই খুলে যথাস্থানে বসে যায়।` / `৫. বেশিরভাগ ক্ষেত্রে সেলাই লাগে না — ছিদ্রটা নিজে থেকেই বন্ধ হয়ে যায়।`
+- সুস্থ হওয়ার সময়: `বেশিরভাগ রোগী এক-দুই দিনের মধ্যেই স্পষ্ট দৃষ্টি টের পান। প্রথম সপ্তাহে হালকা অস্বস্তি ও আলোয় সংবেদনশীলতা স্বাভাবিক — সংক্রমণ ঠেকাতে ও প্রদাহ কমাতে ড্রপ দেওয়া হয়। বেশিরভাগ মানুষ কয়েকদিনের মধ্যেই স্বাভাবিক কাজে ফিরে যেতে পারেন।`
+- CTA: `ছানি অপারেশনের জন্য পরামর্শ নিন`
+
+---
+
+## SUB-PAGE: VITREORETINAL SURGERY
+
+**EN**
+- H1: `Vitreoretinal Surgery`
+- Intro: `The retina is the light-sensitive layer at the back of the eye — when it tears, detaches, or bleeds, vision can be lost quickly and permanently without prompt treatment. Vitreoretinal surgery covers the range of procedures used to repair the retina and the vitreous gel that fills the eye.`
+- Conditions treated: `Retinal detachment · Diabetic retinopathy · Macular disease · CRVO/BRVO (retinal vein occlusion) · Vitreous hemorrhage · Complex trauma cases`
+- How it works: `Most procedures are performed through pars plana vitrectomy (PPV) — three tiny openings are made in the white of the eye to remove the vitreous gel and repair the retina from inside, sometimes combined with a gas or silicone oil bubble to hold the retina in place while it heals. Dislocated lenses are corrected using scleral fixation (Yamane technique) when needed.`
+- Note: `Retinal detachment and sudden vitreous hemorrhage are medical emergencies — earlier treatment means a much better chance of preserving vision. If you're experiencing sudden flashes, floaters, or a curtain-like shadow in your vision, contact the practice immediately.`
+- CTA: `Book an Urgent Consultation`
+
+**BN**
+- H1: `রেটিনা সার্জারি`
+- Intro: `রেটিনা হলো চোখের পেছনের আলো-সংবেদনশীল স্তর — এটি ছিঁড়ে গেলে, সরে গেলে, বা রক্তক্ষরণ হলে দ্রুত চিকিৎসা না নিলে দৃষ্টি স্থায়ীভাবে হারিয়ে যেতে পারে। রেটিনা সার্জারির আওতায় পড়ে রেটিনা ও চোখের ভেতরের জেল (ভিট্রিয়াস) মেরামতের বিভিন্ন পদ্ধতি।`
+- যেসব সমস্যার চিকিৎসা হয়: `রেটিনা বিচ্ছিন্নতা · ডায়াবেটিক রেটিনোপ্যাথি · ম্যাকুলার সমস্যা · CRVO/BRVO (রেটিনার শিরা বন্ধ হয়ে যাওয়া) · ভিট্রিয়াস হেমোরেজ · জটিল আঘাতজনিত সমস্যা`
+- কীভাবে হয়: `বেশিরভাগ ক্ষেত্রে পার্স প্লানা ভিট্রেক্টমি (PPV) পদ্ধতি ব্যবহার হয় — চোখের সাদা অংশে তিনটি খুবই ছোট ছিদ্র করে ভেতরের জেল বের করে রেটিনা মেরামত করা হয়, প্রয়োজনে গ্যাস বা সিলিকন অয়েল বাবল দিয়ে রেটিনাকে সুস্থ হওয়া পর্যন্ত জায়গামতো ধরে রাখা হয়। লেন্স সরে গেলে প্রয়োজনমতো স্কেরাল ফিক্সেশন (ইয়ামানে টেকনিক) দিয়ে ঠিক করা হয়।`
+- বিশেষ নোট: `রেটিনা বিচ্ছিন্নতা আর হঠাৎ ভিট্রিয়াস হেমোরেজ — এই দুটোই মেডিকেল ইমার্জেন্সি। যত আগে চিকিৎসা শুরু হয়, দৃষ্টি বাঁচানোর সম্ভাবনা তত বেশি। হঠাৎ চোখে আলোর ঝলকানি, কালো বিন্দু ভাসতে দেখা, বা পর্দার মতো ছায়া দেখলে দেরি না করে যোগাযোগ করুন।`
+- CTA: `জরুরি পরামর্শের জন্য যোগাযোগ করুন`
+
+---
+
+## SUB-PAGE: REFRACTIVE SURGERY (LASIK / PRK / SMILE)
+
+**EN**
+- H1: `Refractive Surgery — LASIK, PRK & SMILE`
+- Intro: `Refractive surgery reshapes the cornea so light focuses correctly on the retina, reducing or removing dependence on glasses and contact lenses. Dr. Nahal offers LASIK, PRK, Femto-LASIK, and lenticule extraction (SMILE) — the technique chosen depends on your cornea's thickness, shape, and your lifestyle.`
+- Who's a candidate: `Generally, adults 18+ with a stable eyeglass prescription for at least a year, healthy corneas, and no active eye disease. A detailed pre-surgery evaluation determines candidacy and the best technique.`
+- The three techniques, briefly: `LASIK — a thin corneal flap is created and the underlying tissue reshaped with a laser, then the flap is repositioned; fast visual recovery. PRK — the surface layer is removed and regrows after treatment; better suited to thinner corneas. SMILE — a small lens-shaped piece of tissue is removed through a tiny incision, no flap required; minimally invasive.`
+- Recovery: `LASIK and SMILE patients often notice improved vision within a day; PRK takes slightly longer as the surface layer heals, typically a few days to a week.`
+- CTA: `Check If You're a Candidate`
+
+**BN**
+- H1: `চোখের পাওয়ার সংক্রান্ত সার্জারি — লেসিক, পিআরকে ও স্মাইল`
+- Intro: `রিফ্র্যাক্টিভ সার্জারিতে কর্নিয়ার আকৃতি এমনভাবে পরিবর্তন করা হয় যাতে আলো ঠিকভাবে রেটিনায় গিয়ে পড়ে — ফলে চশমা বা লেন্সের ওপর নির্ভরতা কমে যায় বা একেবারেই দূর হয়। ডা. নাহাল লেসিক, পিআরকে, ফেমটো-লেসিক ও লেন্টিকিউল এক্সট্র্যাকশন (স্মাইল) — চারটি পদ্ধতিতেই কাজ করেন। কোন পদ্ধতি প্রযোজ্য তা নির্ভর করে আপনার কর্নিয়ার পুরুত্ব, আকৃতি ও জীবনযাত্রার ওপর।`
+- কারা করাতে পারেন: `সাধারণত ১৮ বছরের বেশি বয়সী যাদের চশমার পাওয়ার অন্তত এক বছর স্থিতিশীল আছে, চোখ সুস্থ এবং কোনো সক্রিয় রোগ নেই। বিস্তারিত পরীক্ষার পরই নির্ধারণ করা হয় কোন পদ্ধতি সবচেয়ে উপযুক্ত।`
+- তিনটি পদ্ধতি সংক্ষেপে: `লেসিক — কর্নিয়ায় পাতলা একটা ফ্ল্যাপ তৈরি করে ভেতরের অংশ লেজার দিয়ে পুনর্গঠন করা হয়, তারপর ফ্ল্যাপ আবার আগের জায়গায় বসিয়ে দেওয়া হয় — দ্রুত সুস্থ হওয়া যায়। পিআরকে — উপরের স্তর সরিয়ে ফেলা হয়, যা চিকিৎসার পর আবার গজায় — পাতলা কর্নিয়ার জন্য বেশি উপযুক্ত। স্মাইল — ছোট্ট একটা ছিদ্র দিয়ে লেন্স-আকৃতির একটা টিস্যু বের করে ফেলা হয়, ফ্ল্যাপ তৈরির দরকার হয় না — সবচেয়ে কম কাটাছেঁড়ার পদ্ধতি।`
+- সুস্থ হওয়ার সময়: `লেসিক ও স্মাইলে বেশিরভাগ রোগী একদিনের মধ্যেই ভালো দৃষ্টি টের পান; পিআরকেতে উপরের স্তর সারতে একটু বেশি সময় লাগে, সাধারণত কয়েকদিন থেকে এক সপ্তাহ।`
+- CTA: `আপনি উপযুক্ত কিনা যাচাই করুন`
+
+---
+
+## SUB-PAGE: ROP CARE (Retinopathy of Prematurity)
+
+**EN**
+- H1: `ROP Care — Retinopathy of Prematurity`
+- Intro: `Premature babies are at risk of abnormal blood vessel growth in the retina, which can threaten vision if untreated. ROP screening and treatment is one of the most time-sensitive areas of ophthalmology — early detection makes the difference between normal vision and permanent vision loss.`
+- Who needs screening: `Babies born before 34 weeks of gestation, or with low birth weight, should be screened starting around 3–4 weeks after birth, as advised by the treating pediatrician or neonatologist.`
+- How it's treated: `Depending on severity, treatment ranges from continued monitoring, to laser therapy on the retina, to anti-VEGF injections, to surgery in advanced cases. Most cases caught early can be managed without surgery.`
+- CTA: `Book a Newborn Eye Screening`
+
+**BN**
+- H1: `ROP চিকিৎসা — অপরিণত নবজাতকের রেটিনা সমস্যা`
+- Intro: `অপরিণত অবস্থায় জন্ম নেওয়া শিশুদের রেটিনায় অস্বাভাবিক রক্তনালী বৃদ্ধির ঝুঁকি থাকে, যা সময়মতো চিকিৎসা না হলে দৃষ্টিশক্তির জন্য বিপজ্জনক হতে পারে। ROP স্ক্রিনিং ও চিকিৎসা চক্ষুবিদ্যার সবচেয়ে সময়-সংবেদনশীল একটি বিষয় — দ্রুত শনাক্ত করাই স্বাভাবিক দৃষ্টি আর স্থায়ী দৃষ্টিহীনতার মধ্যে পার্থক্য গড়ে দেয়।`
+- কাদের স্ক্রিনিং দরকার: `৩৪ সপ্তাহের আগে জন্ম নেওয়া, অথবা কম ওজন নিয়ে জন্মানো শিশুদের জন্মের প্রায় ৩-৪ সপ্তাহ পর থেকেই স্ক্রিনিং শুরু করা উচিত, শিশু বিশেষজ্ঞের পরামর্শ অনুযায়ী।`
+- কীভাবে চিকিৎসা হয়: `সমস্যার তীব্রতা অনুযায়ী চিকিৎসা হতে পারে নিয়মিত পর্যবেক্ষণ, রেটিনায় লেজার থেরাপি, অ্যান্টি-ভিইজিএফ ইনজেকশন, অথবা জটিল ক্ষেত্রে সার্জারি। আগেভাগে ধরা পড়লে বেশিরভাগ ক্ষেত্রেই সার্জারি ছাড়াই সামলানো যায়।`
+- CTA: `নবজাতকের চোখ পরীক্ষার অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: OCULOPLASTY
+
+**EN**
+- H1: `Oculoplasty — Eyelid & Orbital Surgery`
+- Intro: `Oculoplasty covers surgical care for the structures around the eye — eyelids, tear ducts, and the orbit (eye socket) — addressing both function and appearance.`
+- Conditions treated: `Ptosis (drooping eyelid) · Lid tumors & chalazion removal · Tear duct blockage (DCR) · Orbital tumors and trauma`
+- How it works: `Procedures are tailored to the specific condition — ptosis repair tightens the muscle that lifts the eyelid; DCR creates a new drainage path for tears; tumor removal is combined with reconstruction to preserve normal eyelid function and appearance.`
+- CTA: `Book an Oculoplasty Consultation`
+
+**BN**
+- H1: `অকুলোপ্লাস্টি — চোখের পাতা ও অরবিটাল সার্জারি`
+- Intro: `অকুলোপ্লাস্টির আওতায় পড়ে চোখের চারপাশের অংশের সার্জারি — চোখের পাতা, অশ্রুনালী এবং অরবিট (চোখের কোটর) — যা কার্যকারিতা ও চেহারা দুটোই ঠিক রাখে।`
+- যেসব সমস্যার চিকিৎসা হয়: `পিটোসিস (চোখের পাতা ঝুলে পড়া) · পাতার টিউমার ও চ্যালাজিয়ন অপসারণ · অশ্রুনালী বন্ধ হয়ে যাওয়া (DCR) · অরবিটাল টিউমার ও আঘাতজনিত সমস্যা`
+- কীভাবে হয়: `প্রতিটি সমস্যার জন্য আলাদা পদ্ধতি — পিটোসিস মেরামতে পাতা তোলার পেশি টানটান করা হয়; DCR-এ অশ্রুর জন্য নতুন নিষ্কাশন পথ তৈরি করা হয়; টিউমার অপসারণের সাথে পুনর্গঠনও করা হয় যাতে পাতার স্বাভাবিক কাজ ও চেহারা বজায় থাকে।`
+- CTA: `অকুলোপ্লাস্টি পরামর্শের জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: PTERYGIUM SURGERY
+
+**EN**
+- H1: `Pterygium Removal (with Graft)`
+- Intro: `A pterygium is a growth of tissue on the white of the eye, often caused by long-term sun and wind exposure, that can extend onto the cornea and affect vision if left untreated.`
+- Who needs it: `Redness, irritation, a visible growth on the eye, or blurred vision if the growth has reached the cornea.`
+- How it works: `The growth is surgically removed and the area covered with a conjunctival graft (using the eye's own tissue) to reduce the chance of recurrence — a well-established, low-risk procedure.`
+- CTA: `Book a Pterygium Consultation`
+
+**BN**
+- H1: `পিটেরিজিয়াম অপসারণ (গ্রাফটসহ)`
+- Intro: `পিটেরিজিয়াম হলো চোখের সাদা অংশে টিস্যুর একটা বৃদ্ধি, যা সাধারণত দীর্ঘদিন রোদ ও বাতাসের সংস্পর্শে থাকার কারণে হয়। চিকিৎসা না করালে এটি কর্নিয়া পর্যন্ত ছড়িয়ে দৃষ্টিতে প্রভাব ফেলতে পারে।`
+- কার প্রয়োজন হতে পারে: `চোখ লাল হওয়া, জ্বালাপোড়া, চোখে দৃশ্যমান একটা বৃদ্ধি, অথবা এটি কর্নিয়া পর্যন্ত পৌঁছালে দৃষ্টি ঝাপসা হয়ে যাওয়া।`
+- কীভাবে হয়: `বৃদ্ধিটুকু সার্জারি করে অপসারণ করা হয় এবং সেই জায়গা কনজাংটিভাল গ্রাফট (চোখের নিজস্ব টিস্যু ব্যবহার করে) দিয়ে ঢেকে দেওয়া হয়, যাতে আবার ফিরে আসার সম্ভাবনা কমে যায় — একটি সুপরিচিত ও কম ঝুঁকিপূর্ণ পদ্ধতি।`
+- CTA: `পিটেরিজিয়াম পরামর্শের জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: SQUINT (STRABISMUS) SURGERY — NEW (2026-08-29, drafted, doctor to confirm)
+
+**EN**
+- H1: `Squint (Strabismus) Surgery`
+- Intro: `Squint is a misalignment of the eyes — they don't point in the same direction at the same time. Left uncorrected, it can affect both appearance and how the two eyes work together.`
+- Who needs it: `One or both eyes turning in, out, up, or down; double vision; or a child squinting/tilting their head to see clearly.`
+- How it works: `Depending on cause, treatment ranges from corrective glasses to surgery that adjusts the eye muscles responsible for movement — realigning the eyes and, in many cases, restoring binocular vision.`
+- CTA: `Book a Squint Consultation`
+
+**BN**
+- H1: `স্কুইন্ট (স্ট্র্যাবিজমাস) সার্জারি`
+- Intro: `স্কুইন্ট মানে দুই চোখ একসাথে একই দিকে না তাকানো। চিকিৎসা না করালে এটা চেহারা আর দুই চোখ একসাথে কাজ করার ক্ষমতা — দুটোতেই প্রভাব ফেলতে পারে।`
+- কার প্রয়োজন হতে পারে: `এক বা দুই চোখ ভেতরে, বাইরে, ওপরে বা নিচে বেঁকে যাওয়া; দুটো করে দেখা; অথবা শিশু স্পষ্ট দেখার জন্য চোখ কুঁচকে বা মাথা কাত করে তাকানো।`
+- কীভাবে হয়: `কারণ অনুযায়ী — চশমা থেকে শুরু করে চোখ নড়াচড়ার জন্য দায়ী পেশি সমন্বয় করার সার্জারি, যা চোখ সমান্তরাল করে ও অনেক ক্ষেত্রে দুই চোখ একসাথে ব্যবহারের দৃষ্টি ফিরিয়ে আনে।`
+- CTA: `স্কুইন্ট পরামর্শের জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: DIABETIC EYE CARE — NEW
+
+**EN**
+- H1: `Diabetic Eye Care`
+- Intro: `Diabetes can silently damage the retina's blood vessels — diabetic retinopathy is a leading cause of vision loss in working-age adults, and it often has no symptoms until it's advanced.`
+- Who needs it: `Anyone with diabetes, especially if it's been present for several years, or if blood sugar/blood pressure/cholesterol has been hard to control.`
+- How it works: `Regular dilated retina screening catches changes early. Treatment — when needed — ranges from close monitoring to anti-VEGF injections, laser therapy, or vitrectomy for advanced cases.`
+- CTA: `Book a Diabetic Eye Screening`
+
+**BN**
+- H1: `ডায়াবেটিক আই কেয়ার`
+- Intro: `ডায়াবেটিস নিঃশব্দে রেটিনার রক্তনালীর ক্ষতি করতে পারে — ডায়াবেটিক রেটিনোপ্যাথি কর্মক্ষম বয়সের মানুষদের দৃষ্টিহীনতার একটা প্রধান কারণ, আর অনেক সময় জটিল না হওয়া পর্যন্ত কোনো লক্ষণই বোঝা যায় না।`
+- কার প্রয়োজন হতে পারে: `যেকোনো ডায়াবেটিস রোগী, বিশেষ করে যাদের অনেক বছর ধরে ডায়াবেটিস আছে, বা সুগার/প্রেসার/কোলেস্টেরল নিয়ন্ত্রণে রাখা কঠিন হচ্ছে।`
+- কীভাবে হয়: `নিয়মিত পুতুল বড় করে রেটিনা স্ক্রিনিং করালে পরিবর্তন আগেভাগে ধরা পড়ে। প্রয়োজনে চিকিৎসা — নিয়মিত পর্যবেক্ষণ থেকে শুরু করে অ্যান্টি-ভিইজিএফ ইনজেকশন, লেজার থেরাপি, বা জটিল ক্ষেত্রে ভিট্রেক্টমি পর্যন্ত।`
+- CTA: `ডায়াবেটিক আই স্ক্রিনিং-এর জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: GLAUCOMA MANAGEMENT — NEW (secondary/light-touch, not a full specialty claim)
+
+**EN**
+- H1: `Glaucoma Management`
+- Intro: `Glaucoma damages the optic nerve, usually linked to elevated eye pressure. It progresses slowly and painlessly — often called "the silent thief of sight" because vision loss isn't noticed until it's already happened.`
+- Who needs it: `Anyone with a family history of glaucoma, or over 40 without a recent eye pressure check.`
+- How it works: `Most cases are managed with pressure-lowering eye drops. Select cases may need laser treatment or surgery (such as trabeculectomy) to protect the optic nerve.`
+- CTA: `Book a Glaucoma Screening`
+
+**BN**
+- H1: `গ্লুকোমা ব্যবস্থাপনা`
+- Intro: `গ্লুকোমা অপটিক নার্ভের ক্ষতি করে, সাধারণত চোখের চাপ বেড়ে যাওয়ার সাথে যুক্ত। এটা ধীরে ও ব্যথাহীনভাবে বাড়ে — একে "নীরব দৃষ্টিচোর" বলা হয় কারণ দৃষ্টি কমে যাওয়ার আগে বোঝাই যায় না।`
+- কার প্রয়োজন হতে পারে: `যাদের পরিবারে গ্লুকোমার ইতিহাস আছে, বা ৪০ বছরের বেশি বয়সী যারা সম্প্রতি চোখের চাপ পরীক্ষা করাননি।`
+- কীভাবে হয়: `বেশিরভাগ ক্ষেত্রে চাপ কমানোর ড্রপ দিয়েই নিয়ন্ত্রণ করা যায়। নির্দিষ্ট ক্ষেত্রে অপটিক নার্ভ রক্ষার জন্য লেজার চিকিৎসা বা সার্জারি (যেমন ট্র্যাবেকুলেক্টমি) প্রয়োজন হতে পারে।`
+- CTA: `গ্লুকোমা স্ক্রিনিং-এর জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: DRY EYE & CORNEAL DISEASE — NEW
+
+**EN**
+- H1: `Dry Eye & Corneal Disease Treatment`
+- Intro: `Dry eye happens when the eye can't stay properly lubricated — common with screen time, age, and dry air. Corneal disease (like ulcers or keratitis) is more serious and needs prompt care.`
+- Who needs it: `Persistent burning, grittiness, or blurry vision that clears with blinking (dry eye); or pain, redness, and light sensitivity after an injury or contact lens misuse (possible corneal infection — see urgently).`
+- How it works: `Dry eye is managed with lubricating drops and lifestyle changes; persistent cases may need targeted treatment. Corneal infections need prompt antibiotic or antifungal treatment to prevent scarring.`
+- CTA: `Book a Dry Eye / Corneal Consultation`
+
+**BN**
+- H1: `ড্রাই আই ও কর্নিয়াল রোগের চিকিৎসা`
+- Intro: `চোখ ঠিকমতো আর্দ্র রাখতে না পারলে ড্রাই আই হয় — স্ক্রিন টাইম, বয়স আর শুষ্ক বাতাসে বেশি দেখা যায়। কর্নিয়াল রোগ (যেমন আলসার বা কেরাটাইটিস) বেশি গুরুতর, দ্রুত চিকিৎসা দরকার।`
+- কার প্রয়োজন হতে পারে: `লাগাতার জ্বালাপোড়া, খসখসে ভাব, বা পলক পড়লে ঠিক হয়ে যাওয়া ঝাপসা দৃষ্টি (ড্রাই আই); অথবা আঘাত বা লেন্সের ভুল ব্যবহারের পর ব্যথা, লালচেভাব, আলোয় অস্বস্তি (সম্ভাব্য কর্নিয়াল সংক্রমণ — দ্রুত দেখান)।`
+- কীভাবে হয়: `ড্রাই আই লুব্রিকেটিং ড্রপ ও জীবনযাত্রার পরিবর্তনে সামলানো হয়; দীর্ঘস্থায়ী হলে নির্দিষ্ট চিকিৎসা লাগতে পারে। কর্নিয়াল সংক্রমণে দাগ পড়া ঠেকাতে দ্রুত অ্যান্টিবায়োটিক বা অ্যান্টিফাঙ্গাল চিকিৎসা দরকার।`
+- CTA: `ড্রাই আই / কর্নিয়া পরামর্শের জন্য অ্যাপয়েন্টমেন্ট নিন`
+
+---
+
+## SUB-PAGE: EYE TRAUMA & EMERGENCY CARE — NEW
+
+**EN**
+- H1: `Eye Trauma & Emergency Care`
+- Intro: `Eye injuries and sudden vision changes can threaten sight permanently if not treated quickly — some are true emergencies where every hour matters.`
+- Who needs it: `Any eye injury (chemical, blunt, or sharp trauma), sudden vision loss, flashes of light, a shower of new floaters, or a shadow across your vision.`
+- How it works: `Urgent evaluation determines the extent of injury, followed by treatment ranging from medication to emergency surgery depending on severity. Time-sensitive — contact the practice immediately rather than waiting for a routine appointment.`
+- CTA: `Emergency? Call Immediately`
+
+**BN**
+- H1: `চোখের আঘাত ও জরুরি চিকিৎসা`
+- Intro: `চোখের আঘাত আর হঠাৎ দৃষ্টি পরিবর্তন দ্রুত চিকিৎসা না হলে স্থায়ীভাবে দৃষ্টি কেড়ে নিতে পারে — কিছু ক্ষেত্রে সত্যিকারের জরুরি অবস্থা, যেখানে প্রতিটা ঘণ্টা গুরুত্বপূর্ণ।`
+- কার প্রয়োজন হতে পারে: `যেকোনো চোখের আঘাত (রাসায়নিক, আঘাতজনিত, বা ধারালো কিছু দিয়ে), হঠাৎ দৃষ্টি হারানো, আলোর ঝলকানি, অনেকগুলো নতুন কালো বিন্দু, বা দৃষ্টিতে ছায়া।`
+- কীভাবে হয়: `জরুরি পরীক্ষায় আঘাতের মাত্রা বোঝা হয়, তারপর তীব্রতা অনুযায়ী ওষুধ থেকে জরুরি সার্জারি পর্যন্ত চিকিৎসা। সময়-সংবেদনশীল — নিয়মিত অ্যাপয়েন্টমেন্টের বদলে সাথে সাথে যোগাযোগ করুন।`
+- CTA: `জরুরি অবস্থা? এখনই কল করুন`
+
+---
+
+**Next:** Batch 3 — Conditions/Diseases pages (16 pages).

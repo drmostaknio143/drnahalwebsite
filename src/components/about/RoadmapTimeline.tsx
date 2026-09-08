@@ -1,6 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  Calendar,
+  Building2,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  GraduationCap,
+  Award,
+} from "lucide-react";
 import { Lang } from "@/lib/i18n/types";
 import { aboutDict } from "@/lib/i18n/about";
 
@@ -10,25 +20,17 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const dotRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [active, setActive] = useState(0);
-  // computed in JS, in px — NOT CSS percentages. Percentage padding on the
-  // scrolled content itself (a flex box sized by its own children) is a
-  // circular-dependency trap in some browsers: the padding never resolves to
-  // the real half-width, so the scroll range falls short and the last few
-  // items become permanently unreachable. Pixels sidestep that entirely.
   const [sidePad, setSidePad] = useState(0);
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const scrollStartLeft = useRef(0);
   const moved = useRef(false);
 
-  const DOT_ITEM_WIDTH = 100; // must match the button's fixed width below
+  const DOT_ITEM_WIDTH = 120; // button fixed width
 
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    // Padding must bring the ITEM'S CENTER to the viewport center at the
-    // scroll extremes — not the item's edge. That's clientWidth/2 minus
-    // half the item's own width, not clientWidth/2 alone.
     const measure = () => setSidePad(Math.max(0, el.clientWidth / 2 - DOT_ITEM_WIDTH / 2));
     measure();
     const ro = new ResizeObserver(measure);
@@ -68,6 +70,7 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
     const r = btn.getBoundingClientRect();
     const cx = r.left + r.width / 2 - scrollerRect.left + el.scrollLeft;
     el.scrollTo({ left: cx - el.clientWidth / 2, behavior: smooth ? "smooth" : "auto" });
+    setActive(idx);
   }, []);
 
   useEffect(() => {
@@ -79,16 +82,25 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
       raf = requestAnimationFrame(updateActive);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
-    // center the first dot once padding is measured and the track has its real width
     requestAnimationFrame(() => goTo(0, false));
     updateActive();
     return () => el.removeEventListener("scroll", onScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateActive, lang, sidePad]);
+  }, [updateActive, lang, sidePad, goTo]);
 
-  // Drag handling lives on window (not the element) once a drag starts, so
-  // moving the mouse fast past the element's edge — or releasing outside it —
-  // never gets "stuck" or silently stops the drag.
+  // Keyboard navigation (Left / Right arrow keys)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        goTo(Math.max(0, active - 1));
+      } else if (e.key === "ArrowRight") {
+        goTo(Math.min(steps.length - 1, active + 1));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [active, goTo, steps.length]);
+
+  // Pointer drag handling on the timeline track
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
       if (!isDragging.current) return;
@@ -102,7 +114,6 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
       if (!isDragging.current) return;
       isDragging.current = false;
       if (scrollerRef.current) scrollerRef.current.style.cursor = "grab";
-      // magnetic snap: settle on whichever dot ended up closest to center
       goTo(getClosestIndex());
     };
     window.addEventListener("pointermove", onMove);
@@ -126,68 +137,178 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
   };
 
   const onDotClick = (idx: number) => {
-    if (moved.current) return; // ignore click-after-drag
+    if (moved.current) return;
     goTo(idx);
   };
 
+  const currentStep = steps[active];
+  const progressPercent = ((active + 1) / steps.length) * 100;
+
   return (
-    <div className="band-white w-full py-16">
+    <section className="band-white w-full py-16 md:py-24">
       <div className="mx-auto max-w-[1180px] px-6">
-        <div className="mx-auto mb-4 max-w-[640px] text-center">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-[12.5px] font-bold uppercase tracking-wide text-accent-2">
-            {t.roadmapEyebrow}
+        {/* Section Header */}
+        <div className="mx-auto mb-10 max-w-[720px] text-center">
+          <div className="mb-3.5 inline-flex items-center gap-2 rounded-full bg-accent-soft px-4 py-1.5 text-[12px] font-bold uppercase tracking-wider text-accent-2">
+            <Sparkles size={14} className="text-accent" />
+            <span>{t.roadmapEyebrow}</span>
           </div>
-          <h2 className="font-display text-[24px] font-bold md:text-[30px]">{t.roadmapTitle}</h2>
-          <p className="mt-2 text-[13.5px] font-medium text-ink-muted">{t.roadmapHint}</p>
+          <h2 className="font-display text-[26px] font-extrabold text-ink sm:text-[34px] md:text-[38px]">
+            {t.roadmapTitle}
+          </h2>
+          <p className="mt-3 text-[14px] font-medium text-ink-muted sm:text-[15px]">
+            {t.roadmapHint}
+          </p>
+
+          {/* Progress Bar & Milestone Counter */}
+          <div className="mx-auto mt-6 max-w-[320px]">
+            <div className="flex items-center justify-between text-[12px] font-bold text-ink-muted">
+              <span>
+                {t.milestoneLabel} {active + 1} {t.ofLabel} {steps.length}
+              </span>
+              <span className="text-accent font-display font-extrabold">
+                {currentStep.year}
+              </span>
+            </div>
+            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+              <div
+                className="h-full rounded-full bg-accent transition-all duration-300 ease-out"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* active card, floats above the track — sized to dominate the section
-            frame on both mobile and desktop, per the client's explicit request
-            for a "full card" feel rather than a compact info box. */}
-        <div className="relative mx-auto mb-14 h-[78vh] max-h-[760px] min-h-[520px] w-full max-w-[720px] md:h-[68vh] md:max-h-[680px] md:min-h-[560px]">
+        {/* Interactive Milestone Card */}
+        <div className="relative mx-auto mb-12 min-h-[460px] w-full max-w-[840px] sm:min-h-[420px]">
           {steps.map((s, i) => (
             <div
               key={i}
-              className={`glass absolute inset-0 flex flex-col items-center justify-center overflow-hidden rounded-[32px] px-8 py-12 text-center transition-all duration-500 md:px-16 ${
-                i === active ? "z-10 scale-100 opacity-100" : "pointer-events-none z-0 scale-95 opacity-0"
+              className={`glass absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[32px] border border-emerald-900/10 p-6 shadow-2xl transition-all duration-500 sm:p-10 md:p-12 ${
+                i === active
+                  ? "z-10 scale-100 opacity-100"
+                  : "pointer-events-none z-0 scale-95 opacity-0"
               }`}
             >
-              <span className="pointer-events-none absolute -right-4 -top-6 select-none font-display text-[180px] font-extrabold leading-none text-accent-soft/60 md:text-[240px]">
+              {/* Background Watermark Step Number */}
+              <span
+                className="pointer-events-none absolute -right-2 -top-6 select-none font-display text-[140px] font-extrabold leading-none text-slate-100/90 sm:text-[200px]"
+                aria-hidden="true"
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              <div className="relative z-10 mb-4 inline-flex items-center gap-2 rounded-full bg-accent-soft px-4 py-1.5 text-[13px] font-bold uppercase tracking-wide text-accent-2 md:text-[14px]">
-                {s.year}
+              {/* Card Header */}
+              <div className="relative z-10">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/60 bg-emerald-50/90 px-3.5 py-1 text-[11.5px] font-bold uppercase tracking-wider text-emerald-900">
+                    <GraduationCap size={14} className="text-emerald-700" />
+                    {s.category}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-1 text-[12px] font-bold text-white shadow-xs">
+                    <Calendar size={13} className="text-emerald-300" />
+                    {s.year}
+                  </span>
+                </div>
+
+                {/* Milestone Title */}
+                <h3 className="mt-4 font-display text-[22px] font-extrabold leading-[1.2] text-ink sm:text-[28px] md:text-[34px]">
+                  {s.title}
+                </h3>
+
+                {/* Institution & Location */}
+                <div className="mt-2.5 flex items-center gap-2 text-[13px] font-semibold text-accent-2 sm:text-[14px]">
+                  <Building2 size={15} className="shrink-0 text-accent" />
+                  <span>{s.institution}</span>
+                </div>
+
+                {/* Milestone Narrative */}
+                <p className="mt-4 max-w-[65ch] text-[14.5px] leading-relaxed text-ink-muted sm:text-[16px]">
+                  {s.body}
+                </p>
+
+                {/* Milestone Highlights Pills */}
+                {s.highlights && s.highlights.length > 0 && (
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {s.highlights.map((h) => (
+                      <span
+                        key={h}
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200/80 bg-slate-50/90 px-3 py-1.5 text-[12px] font-medium text-slate-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50/50"
+                      >
+                        <CheckCircle2 size={13} className="shrink-0 text-accent" />
+                        <span>{h}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              <h3 className="relative z-10 font-display text-[30px] font-bold leading-[1.15] md:text-[46px]">
-                {s.title}
-              </h3>
-              <p className="relative z-10 mt-5 max-w-[52ch] text-[16px] leading-relaxed text-ink-muted md:mt-7 md:text-[19px]">
-                {s.body}
-              </p>
+
+              {/* Card Footer: Interactive Prev / Next Navigation Controls */}
+              <div className="relative z-10 mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
+                <button
+                  type="button"
+                  onClick={() => goTo(Math.max(0, active - 1))}
+                  disabled={active === 0}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-bold transition-all ${
+                    active === 0
+                      ? "cursor-not-allowed text-slate-300"
+                      : "bg-slate-100 text-slate-800 hover:bg-slate-200"
+                  }`}
+                >
+                  <ChevronLeft size={16} />
+                  <span>{t.prevBtn}</span>
+                </button>
+
+                {/* Compact Node Indicators */}
+                <div className="hidden sm:flex items-center gap-1.5">
+                  {steps.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      type="button"
+                      onClick={() => goTo(dotIdx)}
+                      className={`h-2.5 rounded-full transition-all duration-300 ${
+                        dotIdx === active
+                          ? "w-7 bg-accent"
+                          : "w-2.5 bg-slate-200 hover:bg-slate-300"
+                      }`}
+                      aria-label={`Go to milestone ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => goTo(Math.min(steps.length - 1, active + 1))}
+                  disabled={active === steps.length - 1}
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-bold transition-all ${
+                    active === steps.length - 1
+                      ? "cursor-not-allowed text-slate-300"
+                      : "bg-accent text-white shadow-sm hover:bg-accent-2 hover:shadow"
+                  }`}
+                >
+                  <span>{t.nextBtn}</span>
+                  <ChevronRight size={16} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* draggable dot track — the decorative line lives OUTSIDE the scrolling
-            element on purpose: an absolutely positioned left-0/right-0 child
-            inside a flex scroll container makes Chrome/WebKit collapse that
-            container's scrollWidth down to the line's own width (the visible
-            viewport), silently hard-capping how far it can ever scroll. */}
-        <div className="relative">
-          <div className="pointer-events-none absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-accent-soft" />
+        {/* Timeline Track with Clickable Nodes */}
+        <div className="relative mt-8">
+          <div
+            className="pointer-events-none absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-slate-200"
+            aria-hidden="true"
+          />
 
           <div
             ref={scrollerRef}
             onPointerDown={onPointerDown}
-            className="scrollbar-none select-none overflow-x-auto"
+            className="scrollbar-none select-none overflow-x-auto py-4"
             style={{ cursor: "grab" }}
           >
-            <div className="relative flex items-center" style={{ height: 76, width: "max-content" }}>
-              {/* margin-right (not CSS `gap`) between flex children — kept from an
-                  earlier fix attempt; harmless either way now that the real cause
-                  (above) is gone. */}
-              <div aria-hidden className="shrink-0" style={{ width: Math.max(0, sidePad - 64), marginRight: 64 }} />
+            <div className="relative flex items-center" style={{ height: 90, width: "max-content" }}>
+              <div aria-hidden className="shrink-0" style={{ width: Math.max(0, sidePad - 60), marginRight: 60 }} />
               {steps.map((s, i) => (
                 <button
                   key={i}
@@ -195,34 +316,45 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
                     dotRefs.current[i] = el;
                   }}
                   onClick={() => onDotClick(i)}
-                  className="relative flex shrink-0 flex-col items-center outline-none"
-                  style={{ width: 100, marginRight: i === steps.length - 1 ? 0 : 64 }}
-                  aria-label={s.title}
+                  className="group relative flex shrink-0 flex-col items-center outline-none transition-transform duration-200 hover:scale-105"
+                  style={{ width: 120, marginRight: i === steps.length - 1 ? 0 : 50 }}
+                  aria-label={`${s.year} - ${s.title}`}
                 >
+                  {/* Outer Node Indicator */}
                   <span
-                    className={`relative z-10 block rounded-full border-[5px] transition-all duration-300 ${
+                    className={`relative z-10 flex items-center justify-center rounded-full transition-all duration-300 ${
                       i === active
-                        ? "h-9 w-9 border-accent bg-white shadow-[0_0_0_9px_rgba(31,74,87,0.14)]"
-                        : "h-4 w-4 scale-90 border-accent-soft bg-white opacity-50 blur-[1px]"
+                        ? "h-10 w-10 border-4 border-white bg-accent text-white shadow-[0_0_0_6px_rgba(31,74,87,0.2)]"
+                        : "h-6 w-6 border-2 border-slate-300 bg-white group-hover:border-accent"
                     }`}
-                  />
+                  >
+                    {i === active && <Award size={16} className="text-emerald-300" />}
+                  </span>
+
+                  {/* Year Tag */}
                   <span
-                    className={`mt-2.5 whitespace-nowrap text-[11px] font-bold uppercase tracking-wide transition-all duration-300 ${
-                      i === active ? "scale-100 text-accent opacity-100" : "scale-90 text-ink-muted opacity-35"
+                    className={`mt-2 whitespace-nowrap text-[12px] font-extrabold uppercase tracking-wide transition-all duration-300 ${
+                      i === active ? "scale-105 text-accent" : "text-slate-400 group-hover:text-slate-700"
                     }`}
                   >
                     {s.year}
                   </span>
+
+                  {/* Short Badge Preview */}
+                  <span
+                    className={`mt-0.5 max-w-[110px] truncate text-center text-[10px] font-semibold transition-all duration-300 ${
+                      i === active ? "text-emerald-700 font-bold" : "text-slate-400 group-hover:text-slate-600"
+                    }`}
+                  >
+                    {s.badge}
+                  </span>
                 </button>
               ))}
-              {/* right spacer carries no trailing margin (it's the last element),
-                  so — unlike the left spacer — it needs the FULL sidePad, not
-                  sidePad minus the gap-margin. */}
               <div aria-hidden className="shrink-0" style={{ width: Math.max(0, sidePad) }} />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

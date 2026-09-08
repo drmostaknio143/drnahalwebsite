@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { isLang } from "@/lib/i18n/types";
 import AboutHero from "@/components/about/AboutHero";
 import RoadmapTimeline from "@/components/about/RoadmapTimeline";
+import DoctorProfileSection from "@/components/about/DoctorProfileSection";
 import AboutClosingCTA from "@/components/about/AboutClosingCTA";
 
 export default async function AboutPage({ params }: PageProps<"/[lang]/about">) {
@@ -12,6 +13,7 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
     <>
       <AboutHero lang={lang} />
       <RoadmapTimeline lang={lang} />
+      <DoctorProfileSection lang={lang} />
       <AboutClosingCTA lang={lang} />
     </>
   );
