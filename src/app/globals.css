@@ -21,6 +21,7 @@
   --color-surface: var(--surface);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --font-display: var(--font-sora);
@@ -38,6 +39,12 @@ body {
   font-family: var(--font-body), var(--font-bengali), system-ui, sans-serif;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  /* `hidden` (not `clip`) forces the UA to compute overflow-y as `auto`,
+     which turns <body> into its own scroll container instead of the normal
+     document/viewport scroll — that silently breaks `position: sticky` and
+     confuses Lenis's scroll tracking site-wide. `clip` prevents horizontal
+     overflow (needed for full-bleed sections) without that side effect. */
+  overflow-x: clip;
 }
 
 .font-display {
@@ -58,6 +65,15 @@ body {
   border: 1px solid var(--glass-border);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   backdrop-filter: blur(18px) saturate(160%);
+}
+
+/* dark glass for text placed over busy/bright photos — guarantees contrast regardless of what's behind it */
+.glass-badge {
+  background: rgba(8, 16, 18, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.5);
 }
 
 .glass-on-dark {
@@ -112,6 +128,14 @@ body {
   transform: translateY(24px);
   transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 .reveal.in {
   opacity: 1;
   transform: translateY(0);

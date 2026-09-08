@@ -1,0 +1,18 @@
+export const conditions = [
+  { slug: "cataract", name: "Cataract", tier: "Core" },
+  { slug: "diabetic-retinopathy", name: "Diabetic Retinopathy", tier: "Core" },
+  { slug: "retinal-detachment", name: "Retinal Detachment", tier: "Core" },
+  { slug: "macular-disease-cscr", name: "Macular Disease / CSCR", tier: "Core" },
+  { slug: "crvo-brvo", name: "CRVO / BRVO", tier: "Core" },
+  { slug: "vitreous-hemorrhage", name: "Vitreous Hemorrhage", tier: "Core" },
+  { slug: "rop", name: "Retinopathy of Prematurity (ROP)", tier: "Core" },
+  { slug: "refractive-error", name: "Refractive Error", tier: "Core" },
+  { slug: "dislocated-lens", name: "Dislocated Lens / Scleral-Fixated IOL", tier: "Core" },
+  { slug: "ptosis", name: "Ptosis", tier: "Core" },
+  { slug: "pterygium", name: "Pterygium", tier: "Core" },
+  { slug: "thyroid-eye-disease", name: "Thyroid Eye Disease", tier: "Core" },
+  { slug: "dry-eye", name: "Dry Eye / Corneal Ulcer", tier: "Core" },
+  { slug: "squint", name: "Squint (Strabismus)", tier: "Core" },
+  { slug: "eye-tumors", name: "Eye Tumors / Lid Tumors", tier: "Core" },
+  { slug: "glaucoma", name: "Glaucoma", tier: "Secondary" },
+];

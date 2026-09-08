@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Plus_Jakarta_Sans, Hind_Siliguri } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
 const sora = Sora({
@@ -31,15 +29,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${sora.variable} ${jakarta.variable} ${hind.variable} h-full antialiased`}
-    >
+    <html className={`${sora.variable} ${jakarta.variable} ${hind.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <SmoothScroll />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
