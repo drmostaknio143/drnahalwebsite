@@ -18,7 +18,7 @@ export const conditions: Condition[] = [
     name: { en: "Cataract", bn: "ছানি" },
     tier: "Core",
     category: { en: "Cataract & Lens", bn: "ছানি ও লেন্স" },
-    image: "/images/services/cataract-surgery.jpg",
+    image: "/images/2. Conditions_Images/1. Cataract.png",
     tags: {
       en: ["Blurry vision", "Faded colors", "Night glare"],
       bn: ["ঝাপসা দৃষ্টি", "ফিকে রং", "রাতে আলোয় ধাঁধা"],
@@ -42,7 +42,7 @@ export const conditions: Condition[] = [
     name: { en: "Diabetic Retinopathy", bn: "ডায়াবেটিক রেটিনোপ্যাথি" },
     tier: "Core",
     category: { en: "Retina & Vitreous", bn: "রেটিনা ও ভিট্রিয়াস" },
-    image: "/images/services/diabetic-eye-care.jpg",
+    image: "/images/2. Conditions_Images/2. Diabetic Retinopathy.png",
     tags: {
       en: ["Blood sugar", "Floaters", "Microaneurysms"],
       bn: ["ব্লাড সুগার", "কালো বিন্দু ভাসা", "রক্তনালীর ক্ষতি"],
@@ -66,7 +66,7 @@ export const conditions: Condition[] = [
     name: { en: "Retinal Detachment", bn: "রেটিনা বিচ্ছিন্নতা" },
     tier: "Core",
     category: { en: "Retina & Vitreous", bn: "রেটিনা ও ভিট্রিয়াস" },
-    image: "/images/services/vitreoretinal-surgery.jpg",
+    image: "/images/2. Conditions_Images/3. Retinal Detachment.png",
     tags: {
       en: ["Emergency", "Light flashes", "Shadow curtain"],
       bn: ["জরুরি অবস্থা", "আলোর ঝলকানি", "দৃষ্টিতে ছায়া"],
@@ -94,7 +94,7 @@ export const conditions: Condition[] = [
     name: { en: "Macular Problems / CSCR", bn: "ম্যাকুলার সমস্যা (CSCR সহ)" },
     tier: "Core",
     category: { en: "Retina & Vitreous", bn: "রেটিনা ও ভিট্রিয়াস" },
-    image: "/images/services/vitreoretinal-surgery.jpg",
+    image: "/images/2. Conditions_Images/4. Macular Disease.png",
     tags: {
       en: ["Central vision", "CSCR", "Distorted lines"],
       bn: ["কেন্দ্রীয় দৃষ্টি", "সিএসআর", "বাঁকা রেখা দেখা"],
@@ -118,7 +118,7 @@ export const conditions: Condition[] = [
     name: { en: "Retinal Vein Occlusion (CRVO / BRVO)", bn: "রেটিনার শিরা বন্ধ (CRVO / BRVO)" },
     tier: "Core",
     category: { en: "Retina & Vitreous", bn: "রেটিনা ও ভিট্রিয়াস" },
-    image: "/images/services/vitreoretinal-surgery.jpg",
+    image: "/images/2. Conditions_Images/5. CRVO _ BRVO (Retinal Vein Occlusion).png",
     tags: {
       en: ["Vascular block", "Painless blur", "Hypertension"],
       bn: ["রক্তনালী ব্লকেজ", "ব্যথাহীন ঝাপসা", "উচ্চ রক্তচাপ"],
@@ -142,7 +142,7 @@ export const conditions: Condition[] = [
     name: { en: "Vitreous Hemorrhage", bn: "ভিট্রিয়াস হেমোরেজ (চোখের ভেতরে রক্তক্ষরণ)" },
     tier: "Core",
     category: { en: "Retina & Vitreous", bn: "রেটিনা ও ভিট্রিয়াস" },
-    image: "/images/services/vitreoretinal-surgery.jpg",
+    image: "/images/2. Conditions_Images/6. Vitreous Hemorrhage.png",
     tags: {
       en: ["Internal bleeding", "Sudden darkness", "Vitrectomy"],
       bn: ["অভ্যন্তরীণ রক্তক্ষরণ", "হঠাৎ অন্ধকার", "ভিট্রেক্টমি"],
@@ -166,7 +166,7 @@ export const conditions: Condition[] = [
     name: { en: "Retinopathy of Prematurity (ROP)", bn: "নবজাতকের রেটিনা সমস্যা (ROP)" },
     tier: "Core",
     category: { en: "Pediatric & Strabismus", bn: "শিশুর চোখ ও স্কুইন্ট" },
-    image: "/images/services/rop-care.jpg",
+    image: "/images/2. Conditions_Images/7. Retinopathy of Prematurity (ROP).png",
     tags: {
       en: ["Premature infants", "NICU screening", "Time-critical"],
       bn: ["অপরিণত নবজাতক", "এনআইসিইউ স্ক্রিনিং", "সময়-সংবেদনশীল"],
@@ -190,7 +190,7 @@ export const conditions: Condition[] = [
     name: { en: "Refractive Error (Myopia, Hyperopia, Astigmatism)", bn: "রিফ্র্যাক্টিভ এরর (পাওয়ার সমস্যা)" },
     tier: "Core",
     category: { en: "Refractive & Cornea", bn: "রিফ্র্যাক্টিভ ও কর্নিয়া" },
-    image: "/images/services/refractive-surgery.jpg",
+    image: "/images/2. Conditions_Images/8. Refractive Error.png",
     tags: {
       en: ["Myopia", "LASIK", "Glasses free"],
       bn: ["মায়োপিয়া", "লেসিক", "চশমামুক্ত জীবন"],
@@ -214,7 +214,7 @@ export const conditions: Condition[] = [
     name: { en: "Dislocated Lens & Scleral-Fixated IOL", bn: "ডিসলোকেটেড লেন্স ও স্কেরাল ফিক্সেটেড IOL" },
     tier: "Core",
     category: { en: "Cataract & Lens", bn: "ছানি ও লেন্স" },
-    image: "/images/services/cataract-surgery.jpg",
+    image: "/images/2. Conditions_Images/9. Dislocated Lens.png",
     tags: {
       en: ["IOL dislocation", "Yamane technique", "Trauma"],
       bn: ["লেন্স সরে যাওয়া", "ইয়ামানে পদ্ধতি", "চোখে আঘাত"],
@@ -238,7 +238,7 @@ export const conditions: Condition[] = [
     name: { en: "Ptosis (Drooping Eyelid)", bn: "পিটোসিস (চোখের পাতা ঝুলে পড়া)" },
     tier: "Core",
     category: { en: "Oculoplasty & Orbit", bn: "অকুলোপ্লাস্টি ও অরবিট" },
-    image: "/images/services/oculoplasty.jpg",
+    image: "/images/2. Conditions_Images/10. Ptosis.png",
     tags: {
       en: ["Drooping lid", "Levator muscle", "Day surgery"],
       bn: ["পাতা ঝুলে পড়া", "লিভেটর পেশি", "ডে সার্জারি"],
@@ -262,7 +262,7 @@ export const conditions: Condition[] = [
     name: { en: "Pterygium (Surfer's Eye)", bn: "পিটেরিজিয়াম (মাংসবৃদ্ধি)" },
     tier: "Core",
     category: { en: "Cornea & Surface", bn: "কর্নিয়া ও উপরিভাগ" },
-    image: "/images/services/pterygium-surgery.jpg",
+    image: "/images/2. Conditions_Images/11. Pterygium.png",
     tags: {
       en: ["Fleshy growth", "UV exposure", "Conjunctival graft"],
       bn: ["মাংসল বৃদ্ধি", "রোদের ক্ষতি", "কনজাংটিভাল গ্রাফট"],
@@ -286,7 +286,7 @@ export const conditions: Condition[] = [
     name: { en: "Thyroid Eye Disease & Orbital Disorders", bn: "থাইরয়েড আই ডিজিজ ও অরবিটাল সমস্যা" },
     tier: "Core",
     category: { en: "Oculoplasty & Orbit", bn: "অকুলোপ্লাস্টি ও অরবিট" },
-    image: "/images/services/oculoplasty.jpg",
+    image: "/images/2. Conditions_Images/12. Thyroid Eye Disease.png",
     tags: {
       en: ["Bulging eyes", "Graves disease", "Diplopia"],
       bn: ["চোখ বেরিয়ে আসা", "গ্রেভস ডিজিজ", "দুটো দেখা"],
@@ -310,7 +310,7 @@ export const conditions: Condition[] = [
     name: { en: "Dry Eye & Corneal Ulcer", bn: "ড্রাই আই ও কর্নিয়াল আলসার" },
     tier: "Core",
     category: { en: "Cornea & Surface", bn: "কর্নিয়া ও উপরিভাগ" },
-    image: "/images/services/dry-eye-corneal-disease.jpg",
+    image: "/images/2. Conditions_Images/13. Dry Eye_ Corneal Ulcer.png",
     tags: {
       en: ["Grittiness", "Burning", "Corneal infection"],
       bn: ["খচখচে ভাব", "জ্বালাপোড়া", "কর্নিয়ার ঘা"],
@@ -334,7 +334,7 @@ export const conditions: Condition[] = [
     name: { en: "Squint (Strabismus)", bn: "স্কুইন্ট বা ট্যারা চোখ (স্ট্র্যাবিজমাস)" },
     tier: "Core",
     category: { en: "Pediatric & Strabismus", bn: "শিশুর চোখ ও স্কুইন্ট" },
-    image: "/images/services/squint-surgery.jpg",
+    image: "/images/2. Conditions_Images/14. Squint (Strabismus).png",
     tags: {
       en: ["Misalignment", "Binocular vision", "Muscle surgery"],
       bn: ["ট্যারা চোখ", "বাইনোকুলার দৃষ্টি", "পেশি সার্জারি"],
@@ -358,7 +358,7 @@ export const conditions: Condition[] = [
     name: { en: "Eye Tumors & Eyelid Growths", bn: "চোখের টিউমার ও পাতার বৃদ্ধি" },
     tier: "Core",
     category: { en: "Oculoplasty & Orbit", bn: "অকুলোপ্লাস্টি ও অরবিট" },
-    image: "/images/services/oculoplasty.jpg",
+    image: "/images/2. Conditions_Images/15. Eye Tumors _ Lid Tumors.png",
     tags: {
       en: ["Eyelid nodule", "Biopsy", "Reconstruction"],
       bn: ["পাতায় মাংসপিণ্ড", "বায়োপসি", "রিকনস্ট্রাকশন"],
@@ -382,7 +382,7 @@ export const conditions: Condition[] = [
     name: { en: "Glaucoma", bn: "গ্লুকোমা (নীরব দৃষ্টিচোর)" },
     tier: "Secondary",
     category: { en: "Glaucoma", bn: "গ্লুকোমা" },
-    image: "/images/services/glaucoma-management.jpg",
+    image: "/images/2. Conditions_Images/16. Glaucoma.png",
     tags: {
       en: ["Silent thief", "Eye pressure", "Optic nerve"],
       bn: ["নীরব দৃষ্টিচোর", "চোখের প্রেসার", "অপটিক নার্ভ"],

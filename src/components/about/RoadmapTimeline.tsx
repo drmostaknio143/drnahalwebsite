@@ -180,11 +180,12 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
         </div>
 
         {/* Interactive Milestone Card */}
-        <div className="relative mx-auto mb-12 min-h-[460px] w-full max-w-[840px] sm:min-h-[420px]">
+        <div className="grid grid-cols-1 mx-auto mb-12 w-full max-w-[860px] min-h-[480px]">
           {steps.map((s, i) => (
             <div
               key={i}
-              className={`glass absolute inset-0 flex flex-col justify-between overflow-hidden rounded-[32px] border border-emerald-900/10 p-6 shadow-2xl transition-all duration-500 sm:p-10 md:p-12 ${
+              aria-hidden={i !== active}
+              className={`col-start-1 row-start-1 glass flex flex-col justify-between overflow-hidden rounded-[32px] border border-emerald-900/10 p-6 shadow-2xl transition-all duration-500 sm:p-8 md:p-10 ${
                 i === active
                   ? "z-10 scale-100 opacity-100"
                   : "pointer-events-none z-0 scale-95 opacity-0"
@@ -244,15 +245,16 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
               </div>
 
               {/* Card Footer: Interactive Prev / Next Navigation Controls */}
-              <div className="relative z-10 mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
+              <div className="relative z-10 mt-8 flex shrink-0 items-center justify-between border-t border-slate-100/90 pt-5">
                 <button
                   type="button"
+                  tabIndex={i === active ? 0 : -1}
                   onClick={() => goTo(Math.max(0, active - 1))}
                   disabled={active === 0}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-bold transition-all ${
+                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-bold transition-all ${
                     active === 0
                       ? "cursor-not-allowed text-slate-300"
-                      : "bg-slate-100 text-slate-800 hover:bg-slate-200"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 active:scale-95"
                   }`}
                 >
                   <ChevronLeft size={16} />
@@ -265,6 +267,7 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
                     <button
                       key={dotIdx}
                       type="button"
+                      tabIndex={i === active ? 0 : -1}
                       onClick={() => goTo(dotIdx)}
                       className={`h-2.5 rounded-full transition-all duration-300 ${
                         dotIdx === active
@@ -278,12 +281,13 @@ export default function RoadmapTimeline({ lang }: { lang: Lang }) {
 
                 <button
                   type="button"
+                  tabIndex={i === active ? 0 : -1}
                   onClick={() => goTo(Math.min(steps.length - 1, active + 1))}
                   disabled={active === steps.length - 1}
-                  className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-bold transition-all ${
+                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-bold transition-all ${
                     active === steps.length - 1
                       ? "cursor-not-allowed text-slate-300"
-                      : "bg-accent text-white shadow-sm hover:bg-accent-2 hover:shadow"
+                      : "bg-accent text-white shadow-sm hover:bg-accent-2 hover:shadow active:scale-95"
                   }`}
                 >
                   <span>{t.nextBtn}</span>

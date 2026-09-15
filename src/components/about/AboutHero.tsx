@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -35,20 +36,39 @@ export default function AboutHero({ lang }: { lang: Lang }) {
   }, [lang]);
 
   return (
-    <div className="band-white w-full pb-6 pt-14 md:pt-16">
-      <div className="mx-auto max-w-[820px] px-6 text-center">
-        <div className="mb-5 inline-flex items-center gap-2 rounded-full bg-accent-soft px-3.5 py-1.5 text-[12px] font-bold uppercase tracking-wide text-accent-2 md:text-[12.5px]">
-          <ShieldCheck size={14} /> {t.eyebrow}
+    <section className="relative w-full overflow-hidden flex flex-col justify-end items-center min-h-[620px] sm:min-h-[720px] md:min-h-[820px] lg:min-h-[880px] xl:min-h-[960px] pb-12 sm:pb-16 md:pb-20 lg:pb-24 pt-48 sm:pt-60 bg-slate-900">
+      {/* Full-bleed Doctor Cover Banner Background */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/1. About the doctor/Cover banner.png"
+          alt={t.title}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[center_45%] filter brightness-100 contrast-105"
+        />
+        {/* Soft overlay with subtle bottom gradient for text contrast over white apron */}
+        <div className="absolute inset-0 bg-slate-950/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/30 to-transparent" />
+      </div>
+
+      {/* Centered Content */}
+      <div className="relative z-10 mx-auto max-w-[960px] px-6 text-center">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/30 bg-slate-950/60 px-4 py-1.5 text-[12px] font-bold uppercase tracking-wider text-emerald-300 shadow-lg backdrop-blur-md">
+          <ShieldCheck size={15} className="text-emerald-400" />
+          <span>{t.eyebrow}</span>
         </div>
         <h1
           ref={titleRef}
           style={{ perspective: 600 }}
-          className="font-display text-[32px] font-bold leading-tight text-ink md:text-[48px]"
+          className="font-display text-[34px] font-extrabold leading-[1.18] text-white sm:text-[46px] md:text-[54px] lg:text-[60px] drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]"
         >
           {t.title}
         </h1>
-        <p className="mx-auto mt-4 max-w-[54ch] text-[15px] text-ink-muted md:text-[16px]">{t.sub}</p>
+        <p className="mx-auto mt-4 max-w-[66ch] text-[16px] sm:text-[18px] font-medium leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+          {t.sub}
+        </p>
       </div>
-    </div>
+    </section>
   );
 }

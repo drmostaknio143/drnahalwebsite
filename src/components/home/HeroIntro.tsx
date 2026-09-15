@@ -99,7 +99,7 @@ export default function HeroIntro({ lang }: { lang: Lang }) {
             <div className="relative overflow-hidden rounded-3xl border border-emerald-900/15 bg-white shadow-xl">
               <div className="relative h-[440px] w-full sm:h-[480px] lg:h-[510px]">
                 <Image
-                  src="/images/doctor-s-images/dr-nahal-portrait.jpg"
+                  src="/images/1. About the doctor/Dr. Nahal Website Profile image.png"
                   alt={t.doctorName}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 440px"
