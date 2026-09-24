@@ -132,13 +132,8 @@ export default function ConditionsView({ lang }: { lang: Lang }) {
   }, [search, activeCategory, lang]);
 
   // Ensure selectedIndex is always within range of filtered items
-  useEffect(() => {
-    if (selectedIndex >= filtered.length) {
-      setSelectedIndex(0);
-    }
-  }, [filtered.length, selectedIndex]);
-
-  const activeCondition: Condition | undefined = filtered[selectedIndex] || filtered[0];
+  const safeIndex = selectedIndex >= filtered.length ? 0 : selectedIndex;
+  const activeCondition: Condition | undefined = filtered[safeIndex] || filtered[0];
 
   // Handlers for next / previous
   const handlePrev = () => {
