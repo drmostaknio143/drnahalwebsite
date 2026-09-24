@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     const mapped = staticReviews.map((r, idx) => ({
       id: r.id,
       author_en: r.author,

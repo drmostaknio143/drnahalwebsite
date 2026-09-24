@@ -33,15 +33,23 @@ const dict = {
   },
 };
 
-export default function GalleryView({ lang }: { lang: Lang }) {
+export default function GalleryView({
+  lang,
+  initialItems,
+}: {
+  lang: Lang;
+  initialItems?: GalleryItem[];
+}) {
+  const items = initialItems && initialItems.length > 0 ? initialItems : galleryItems;
   const t = dict[lang];
   const [filter, setFilter] = useState<string>("All");
   const [activeItem, setActiveItem] = useState<GalleryItem | null>(null);
 
   const filtered = useMemo(() => {
-    if (filter === "All") return galleryItems;
-    return galleryItems.filter((item) => item.category === filter);
-  }, [filter]);
+    if (filter === "All") return items;
+    return items.filter((item) => item.category === filter);
+  }, [filter, items]);
+
 
   return (
     <div className="min-h-screen py-10 md:py-16">

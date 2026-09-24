@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     const mapped = staticVideos.map((v, idx) => ({
       id: `vid-${idx + 1}`,
       video_code: v.id,
@@ -28,8 +28,9 @@ export async function GET() {
     return NextResponse.json({ success: true, data: mapped, source: "fallback" });
   }
 
-  return NextResponse.json({ success: true, data, source: "database" });
+  return NextResponse.json({ success: true, data: data || [], source: "database" });
 }
+
 
 export async function POST(request: Request) {
   try {

@@ -8,5 +8,9 @@ export function createServerClient() {
     auth: {
       persistSession: false,
     },
+    global: {
+      fetch: (url, init) => fetch(url, { ...init, cache: "no-store" }),
+    },
   });
 }
+

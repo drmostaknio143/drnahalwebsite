@@ -10,12 +10,20 @@ import { Lang } from "@/lib/i18n/types";
 
 const PIN_TOP = 110;
 
-export default function VideoTeaser({ lang }: { lang: Lang }) {
+export default function VideoTeaser({
+  lang,
+  videosList,
+}: {
+  lang: Lang;
+  videosList?: typeof videos;
+}) {
+  const list = videosList && videosList.length > 0 ? videosList : videos;
   const t = homeDict[lang].videos;
   const [active, setActive] = useState(0);
-  const current = videos[active];
+  const current = list[active] || list[0];
   const colRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
+
 
   // CSS `position: sticky` mysteriously never engages here (confirmed with an
   // identical plain test element in the same spot, which DID stick — so the
@@ -101,12 +109,13 @@ export default function VideoTeaser({ lang }: { lang: Lang }) {
             {/* the list */}
             <div className="order-2 flex flex-col gap-1 overflow-hidden rounded-[28px] bg-white p-4 shadow-[0_26px_60px_-24px_rgba(22,35,42,0.35)] md:order-1 md:p-5">
               <div className="mb-2 px-3 pt-1 text-[12px] font-bold uppercase tracking-wide text-ink-muted">
-                {videos.length} {t.countLabel}
+                {list.length} {t.countLabel}
               </div>
-              {videos.map((v, i) => (
+              {list.map((v, i) => (
                 <button
                   key={v.id}
                   onClick={() => setActive(i)}
+
                   className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-left transition-colors duration-200 ${
                     i === active ? "bg-accent text-white" : "hover:bg-accent-soft"
                   }`}

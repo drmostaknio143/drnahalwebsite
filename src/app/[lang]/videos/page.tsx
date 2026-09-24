@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import { isLang, Lang } from "@/lib/i18n/types";
 import VideoLibraryView from "@/components/videos/VideoLibraryView";
+import { getLiveVideos } from "@/lib/data/live";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function VideosPage({
   params,
@@ -10,5 +14,7 @@ export default async function VideosPage({
   const { lang } = await params;
   if (!isLang(lang)) notFound();
 
-  return <VideoLibraryView lang={lang as Lang} />;
+  const videos = await getLiveVideos();
+
+  return <VideoLibraryView lang={lang as Lang} videosList={videos} />;
 }

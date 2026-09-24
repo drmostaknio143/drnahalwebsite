@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import { isLang, Lang } from "@/lib/i18n/types";
 import ChambersView from "@/components/chambers/ChambersView";
+import { getLiveChambers } from "@/lib/data/live";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ChambersPage({
   params,
@@ -10,5 +14,7 @@ export default async function ChambersPage({
   const { lang } = await params;
   if (!isLang(lang)) notFound();
 
-  return <ChambersView lang={lang as Lang} />;
+  const chambers = await getLiveChambers();
+
+  return <ChambersView lang={lang as Lang} chambersList={chambers} />;
 }

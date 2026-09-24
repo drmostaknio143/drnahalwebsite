@@ -8,4 +8,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
   },
+  global: {
+    fetch: (url, init) => fetch(url, { ...init, cache: "no-store" }),
+  },
 });
+

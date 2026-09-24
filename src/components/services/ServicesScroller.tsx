@@ -44,11 +44,19 @@ const icons: Record<string, React.ComponentType<{ size?: number; className?: str
   "eye-trauma-emergency": AlertTriangle,
 };
 
-export default function ServicesScroller({ lang }: { lang: Lang }) {
+export default function ServicesScroller({
+  lang,
+  servicesList,
+}: {
+  lang: Lang;
+  servicesList?: typeof services;
+}) {
+  const items = servicesList && servicesList.length > 0 ? servicesList : services;
   const t = servicesDict[lang];
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
-  const active = services.find((s) => s.slug === activeSlug) ?? null;
+  const active = items.find((s) => s.slug === activeSlug) ?? null;
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
 
   useEffect(() => {
     if (!active) return;
@@ -112,8 +120,9 @@ export default function ServicesScroller({ lang }: { lang: Lang }) {
           block and leave sticky positioning intact. */}
       <div className="w-screen" style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)" }}>
         <div className="relative">
-          {services.map((s, i) => {
+          {items.map((s, i) => {
             const Icon = icons[s.slug] ?? Eye;
+
             return (
               <div
                 key={s.slug}

@@ -95,7 +95,14 @@ const dict = {
   },
 };
 
-export default function ConditionsView({ lang }: { lang: Lang }) {
+export default function ConditionsView({
+  lang,
+  conditionsList,
+}: {
+  lang: Lang;
+  conditionsList?: Condition[];
+}) {
+  const items = conditionsList && conditionsList.length > 0 ? conditionsList : conditions;
   const t = dict[lang];
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -108,13 +115,13 @@ export default function ConditionsView({ lang }: { lang: Lang }) {
   // Extract unique categories in current language
   const categories = useMemo(() => {
     const set = new Set<string>();
-    conditions.forEach((c) => set.add(c.category[lang]));
+    items.forEach((c) => set.add(c.category[lang]));
     return Array.from(set);
-  }, [lang]);
+  }, [lang, items]);
 
   // Filtered conditions list based on category & search query
   const filtered = useMemo(() => {
-    return conditions.filter((c) => {
+    return items.filter((c) => {
       const matchesCat = activeCategory === "all" || c.category[lang] === activeCategory;
       const q = search.toLowerCase().trim();
       if (!q) return matchesCat;
@@ -129,7 +136,8 @@ export default function ConditionsView({ lang }: { lang: Lang }) {
         c.whatIsIt.en.toLowerCase().includes(q) || c.whatIsIt.bn.toLowerCase().includes(q);
       return matchesCat && (matchName || matchTag || matchWhat);
     });
-  }, [search, activeCategory, lang]);
+  }, [search, activeCategory, lang, items]);
+
 
   // Ensure selectedIndex is always within range of filtered items
   const safeIndex = selectedIndex >= filtered.length ? 0 : selectedIndex;
@@ -263,7 +271,7 @@ export default function ConditionsView({ lang }: { lang: Lang }) {
                   : "glass text-ink-muted hover:text-ink"
               }`}
             >
-              {t.allCategories} ({conditions.length})
+              {t.allCategories} ({items.length})
             </button>
             {categories.map((cat) => (
               <button

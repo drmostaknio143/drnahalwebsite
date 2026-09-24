@@ -4,8 +4,15 @@ import { reviews } from "@/lib/data/reviews";
 import { homeDict } from "@/lib/i18n/home";
 import { Lang } from "@/lib/i18n/types";
 
-export default function ReviewsSection({ lang }: { lang: Lang }) {
+export default function ReviewsSection({
+  lang,
+  reviewsList,
+}: {
+  lang: Lang;
+  reviewsList?: typeof reviews;
+}) {
   const t = homeDict[lang].reviews;
+  const list = reviewsList && reviewsList.length > 0 ? reviewsList : reviews;
   return (
     <div className="band-white w-full py-16">
       <div className="mx-auto max-w-[1180px] px-6">
@@ -17,7 +24,8 @@ export default function ReviewsSection({ lang }: { lang: Lang }) {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {reviews.map((r, i) => (
+          {list.map((r, i) => (
+
             <Reveal key={r.id} delay={i * 80}>
               <div className="glass h-full rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1.5">
                 <div className="mb-3 flex gap-0.5 text-[#E8A83C]">{"★★★★★"}</div>

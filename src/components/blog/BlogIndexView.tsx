@@ -35,30 +35,43 @@ const dict = {
   },
 };
 
-export default function BlogIndexView({ lang }: { lang: Lang }) {
+export default function BlogIndexView({
+  lang,
+  initialBlogs,
+}: {
+  lang: Lang;
+  initialBlogs?: BlogPost[];
+}) {
+  const blogs = initialBlogs && initialBlogs.length > 0 ? initialBlogs : blogPosts;
   const t = dict[lang];
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = useMemo(() => {
     const set = new Set<string>();
-    blogPosts.forEach((b) => set.add(b.category[lang]));
+    blogs.forEach((b) => {
+      if (b.category?.[lang]) set.add(b.category[lang]);
+    });
     return Array.from(set);
-  }, [lang]);
+  }, [lang, blogs]);
 
   const filtered = useMemo(() => {
-    return blogPosts.filter((b) => {
-      const matchCat = activeCategory === "All" || b.category[lang] === activeCategory;
+    return blogs.filter((b) => {
+      const matchCat =
+        activeCategory === "All" ||
+        (b.category && b.category[lang] === activeCategory);
       const q = search.toLowerCase().trim();
       if (!q) return matchCat;
       const matchTitle =
-        b.title.en.toLowerCase().includes(q) || b.title.bn.toLowerCase().includes(q);
+        (b.title?.en && b.title.en.toLowerCase().includes(q)) ||
+        (b.title?.bn && b.title.bn.toLowerCase().includes(q));
       const matchDesc =
-        b.metaDescription.en.toLowerCase().includes(q) ||
-        b.metaDescription.bn.toLowerCase().includes(q);
+        (b.metaDescription?.en && b.metaDescription.en.toLowerCase().includes(q)) ||
+        (b.metaDescription?.bn && b.metaDescription.bn.toLowerCase().includes(q));
       return matchCat && (matchTitle || matchDesc);
     });
-  }, [search, activeCategory, lang]);
+  }, [search, activeCategory, lang, blogs]);
+
 
   return (
     <div className="min-h-screen py-10 md:py-16">

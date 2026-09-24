@@ -47,14 +47,22 @@ const dict = {
   },
 };
 
-export default function VideoLibraryView({ lang }: { lang: Lang }) {
+export default function VideoLibraryView({
+  lang,
+  videosList,
+}: {
+  lang: Lang;
+  videosList?: Video[];
+}) {
+  const items = videosList && videosList.length > 0 ? videosList : videos;
   const t = dict[lang];
   const [search, setSearch] = useState("");
   const [selectedCat, setSelectedCat] = useState("all");
   const [activeVideo, setActiveVideo] = useState<Video | null>(null);
 
   const filteredVideos = useMemo(() => {
-    return videos.filter((v) => {
+    return items.filter((v) => {
+
       const matchCat =
         selectedCat === "all" ||
         v.category.toLowerCase() === selectedCat.toLowerCase() ||

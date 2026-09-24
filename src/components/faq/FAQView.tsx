@@ -40,20 +40,27 @@ const dict = {
   },
 };
 
-export default function FAQView({ lang }: { lang: Lang }) {
+export default function FAQView({
+  lang,
+  faqsList,
+}: {
+  lang: Lang;
+  faqsList?: FAQItem[];
+}) {
+  const items = faqsList && faqsList.length > 0 ? faqsList : faqs;
   const t = dict[lang];
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
-  const [openId, setOpenId] = useState<string | null>("faq-1");
+  const [openId, setOpenId] = useState<string | null>(items[0]?.id || "faq-1");
 
   const categories = useMemo(() => {
     const set = new Set<string>();
-    faqs.forEach((f) => set.add(f.category[lang]));
+    items.forEach((f) => set.add(f.category[lang]));
     return Array.from(set);
-  }, [lang]);
+  }, [lang, items]);
 
   const filteredFaqs = useMemo(() => {
-    return faqs.filter((f) => {
+    return items.filter((f) => {
       const matchCat = activeCategory === "all" || f.category[lang] === activeCategory;
       const q = search.toLowerCase().trim();
       if (!q) return matchCat;
@@ -63,7 +70,8 @@ export default function FAQView({ lang }: { lang: Lang }) {
         f.answer.en.toLowerCase().includes(q) || f.answer.bn.toLowerCase().includes(q);
       return matchCat && (matchQ || matchA);
     });
-  }, [search, activeCategory, lang]);
+  }, [search, activeCategory, lang, items]);
+
 
   const toggleAccordion = (id: string) => {
     setOpenId(openId === id ? null : id);

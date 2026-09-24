@@ -267,6 +267,43 @@ export async function getLiveBlogs(): Promise<FrontendBlogPost[]> {
   }
 }
 
+/** Fetch a single blog post by slug from Supabase or static fallback */
+export async function getLiveBlogBySlug(slug: string): Promise<FrontendBlogPost | null> {
+  try {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .single();
+
+    if (!error && data) {
+      const row = data as BlogPostRecord;
+      return {
+        slug: row.slug,
+        title: { en: row.title_en, bn: row.title_bn },
+        metaDescription: { en: row.meta_description_en, bn: row.meta_description_bn },
+        category: { en: row.category_en, bn: row.category_bn },
+        readTime: { en: row.read_time_en, bn: row.read_time_bn },
+        date: row.publish_date,
+        image: row.image_url || "/images/services/cataract-surgery.jpg",
+        sections: row.sections || [],
+        emergencyCallout: row.emergency_callout_en
+          ? { en: row.emergency_callout_en, bn: row.emergency_callout_bn || "" }
+          : undefined,
+        relatedServiceSlug: row.related_service_slug,
+        relatedConditionSlug: row.related_condition_slug,
+      };
+    }
+  } catch {
+    // fallback
+  }
+
+  const found = staticBlogs.find((b) => b.slug === slug);
+  return found || null;
+}
+
+
 /** Fetch Reviews from Supabase or fallback */
 export async function getLiveReviews(): Promise<any[]> {
   try {

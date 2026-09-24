@@ -100,11 +100,15 @@ export default function AdminGalleryPage() {
       if (data.success) {
         setItems((prev) => prev.filter((i) => i.id !== id));
         setDeleteConfirmId(null);
+      } else {
+        alert(data.error || "Failed to delete photo");
       }
     } catch (err: any) {
       console.error(err);
+      alert(err.message || "Network error deleting photo");
     }
   };
+
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">

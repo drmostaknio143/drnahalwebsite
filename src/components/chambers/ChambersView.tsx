@@ -32,8 +32,28 @@ const dict = {
   },
 };
 
-export default function ChambersView({ lang }: { lang: Lang }) {
+import type { Chamber as DbChamber } from "@/lib/supabase/types";
+
+export default function ChambersView({
+  lang,
+  chambersList,
+}: {
+  lang: Lang;
+  chambersList?: DbChamber[];
+}) {
   const t = dict[lang];
+
+  const list =
+    chambersList && chambersList.length > 0
+      ? chambersList.map((ch) => ({
+          id: ch.slug,
+          name: { en: ch.name_en, bn: ch.name_bn },
+          location: { en: ch.location_en, bn: ch.location_bn },
+          hours: { en: ch.hours_en, bn: ch.hours_bn },
+          badge: { en: ch.badge_en, bn: ch.badge_bn },
+          phone: ch.phone,
+        }))
+      : practice.chambers;
 
   return (
     <div className="min-h-screen py-10 md:py-16">
@@ -54,7 +74,8 @@ export default function ChambersView({ lang }: { lang: Lang }) {
 
         {/* Chambers Cards Grid */}
         <div className="grid grid-cols-1 gap-7 md:grid-cols-3">
-          {practice.chambers.map((ch, idx) => (
+          {list.map((ch, idx) => (
+
             <div
               key={ch.id}
               className="glass group flex flex-col justify-between rounded-3xl p-7 shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl"

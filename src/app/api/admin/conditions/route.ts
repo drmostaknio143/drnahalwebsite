@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     const mapped = staticConditions.map((c, idx) => ({
       id: `cond-${idx + 1}`,
       slug: c.slug,

@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("publish_date", { ascending: false });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     const mapped = staticBlogs.map((b, idx) => ({
       id: `blog-${idx + 1}`,
       slug: b.slug,
@@ -33,8 +33,9 @@ export async function GET() {
     return NextResponse.json({ success: true, data: mapped, source: "fallback" });
   }
 
-  return NextResponse.json({ success: true, data, source: "database" });
+  return NextResponse.json({ success: true, data: data || [], source: "database" });
 }
+
 
 export async function POST(request: Request) {
   try {

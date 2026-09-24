@@ -5,8 +5,15 @@ import { services } from "@/lib/data/services";
 import { homeDict } from "@/lib/i18n/home";
 import { Lang } from "@/lib/i18n/types";
 
-export default function ServicesTeaser({ lang }: { lang: Lang }) {
+export default function ServicesTeaser({
+  lang,
+  servicesList,
+}: {
+  lang: Lang;
+  servicesList?: typeof services;
+}) {
   const t = homeDict[lang].services;
+  const list = servicesList && servicesList.length > 0 ? servicesList : services;
   return (
     <div className="band-white w-full py-16">
       <div className="mx-auto max-w-[1180px] px-6">
@@ -18,7 +25,8 @@ export default function ServicesTeaser({ lang }: { lang: Lang }) {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.slice(0, 6).map((s, i) => (
+          {list.slice(0, 6).map((s, i) => (
+
             <Reveal key={s.slug} delay={(i % 3) * 70}>
               <Link
                 href={`/${lang}/services`}

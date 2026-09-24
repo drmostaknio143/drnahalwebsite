@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     // Transform static services to DB format for consistent display
     const mapped = staticServices.map((s, idx) => ({
       id: `service-${idx + 1}`,

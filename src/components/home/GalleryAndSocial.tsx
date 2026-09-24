@@ -5,8 +5,15 @@ import { galleryPreview } from "@/lib/data/gallery";
 import { homeDict } from "@/lib/i18n/home";
 import { Lang } from "@/lib/i18n/types";
 
-export default function GalleryAndSocial({ lang }: { lang: Lang }) {
+export default function GalleryAndSocial({
+  lang,
+  previewItems,
+}: {
+  lang: Lang;
+  previewItems?: { id: string; src: string; caption: string }[];
+}) {
   const t = homeDict[lang].gallery;
+  const list = previewItems && previewItems.length > 0 ? previewItems : galleryPreview;
   return (
     <div className="band-teal w-full py-16">
       <div className="mx-auto max-w-[1180px] px-6">
@@ -19,8 +26,9 @@ export default function GalleryAndSocial({ lang }: { lang: Lang }) {
         </Reveal>
 
         <Reveal className="grid grid-cols-2 gap-3.5 md:grid-cols-4">
-          {galleryPreview.map((g) => (
+          {list.map((g) => (
             <div key={g.id} className="group relative aspect-square overflow-hidden rounded-2xl">
+
               <img
                 src={g.src}
                 alt={g.caption}

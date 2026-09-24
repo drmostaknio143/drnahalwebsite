@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     const mapped = staticGallery.map((g, idx) => ({
       id: g.id,
       src: g.src,
@@ -24,8 +24,9 @@ export async function GET() {
     return NextResponse.json({ success: true, data: mapped, source: "fallback" });
   }
 
-  return NextResponse.json({ success: true, data, source: "database" });
+  return NextResponse.json({ success: true, data: data || [], source: "database" });
 }
+
 
 export async function POST(request: Request) {
   try {

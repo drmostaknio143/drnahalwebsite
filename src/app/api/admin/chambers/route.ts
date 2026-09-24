@@ -9,7 +9,7 @@ export async function GET() {
     .select("*")
     .order("order_index", { ascending: true });
 
-  if (error || !data || data.length === 0) {
+  if (error) {
     return NextResponse.json({ success: true, data: staticChambers, source: "fallback" });
   }
 

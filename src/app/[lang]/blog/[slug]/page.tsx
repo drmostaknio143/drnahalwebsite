@@ -2,20 +2,14 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, ShieldAlert, User, CheckCircle2, ChevronRight } from "lucide-react";
-import { blogPosts } from "@/lib/data/blogs";
 import { isLang, Lang } from "@/lib/i18n/types";
 import { practice } from "@/lib/i18n/nav";
 
-export async function generateStaticParams() {
-  const languages: Lang[] = ["en", "bn"];
-  const params: { lang: Lang; slug: string }[] = [];
-  for (const lang of languages) {
-    for (const post of blogPosts) {
-      params.push({ lang, slug: post.slug });
-    }
-  }
-  return params;
-}
+import { getLiveBlogBySlug } from "@/lib/data/live";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const dynamicParams = true;
 
 export default async function BlogPostPage({
   params,
@@ -25,10 +19,11 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   if (!isLang(lang)) notFound();
 
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getLiveBlogBySlug(slug);
   if (!post) notFound();
 
   const isEn = lang === "en";
+
 
   return (
     <div className="min-h-screen py-10 md:py-16">
