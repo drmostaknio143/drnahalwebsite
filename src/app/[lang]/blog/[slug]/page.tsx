@@ -19,11 +19,14 @@ export default async function BlogPostPage({
   const { lang, slug } = await params;
   if (!isLang(lang)) notFound();
 
-  const post = await getLiveBlogBySlug(slug);
+  const post = await getLiveBlogBySlug(decodeURIComponent(slug || "").trim());
   if (!post) notFound();
 
   const isEn = lang === "en";
-
+  const title = post.title?.[lang as Lang] || post.title?.en || "Article";
+  const category = post.category?.[lang as Lang] || post.category?.en || "Eye Care";
+  const readTime = post.readTime?.[lang as Lang] || post.readTime?.en || "5 min read";
+  const emergencyCallout = post.emergencyCallout?.[lang as Lang] || post.emergencyCallout?.en;
 
   return (
     <div className="min-h-screen py-10 md:py-16">
@@ -39,7 +42,7 @@ export default async function BlogPostPage({
           </Link>
           <ChevronRight size={12} />
           <span className="truncate max-w-[280px] text-accent">
-            {post.category[lang as Lang]}
+            {category}
           </span>
         </div>
 
@@ -55,10 +58,10 @@ export default async function BlogPostPage({
         {/* Article Header */}
         <header className="mb-8">
           <span className="inline-block rounded-full bg-accent-soft px-3.5 py-1 text-[12px] font-bold uppercase tracking-wider text-accent-2">
-            {post.category[lang as Lang]}
+            {category}
           </span>
           <h1 className="mt-3.5 font-display text-[28px] font-extrabold leading-tight text-ink sm:text-[36px] md:text-[42px]">
-            {post.title[lang as Lang]}
+            {title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-[13px] text-ink-muted border-b border-black/5 pb-5">
             <span className="flex items-center gap-1.5 font-semibold text-ink">
@@ -68,7 +71,7 @@ export default async function BlogPostPage({
             <span>·</span>
             <span className="flex items-center gap-1.5">
               <Clock size={14} />
-              <span>{post.readTime[lang as Lang]}</span>
+              <span>{readTime}</span>
             </span>
             <span>·</span>
             <span className="flex items-center gap-1.5">
@@ -81,8 +84,8 @@ export default async function BlogPostPage({
         {/* Hero Image */}
         <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden rounded-3xl bg-slate-900 shadow-md">
           <Image
-            src={post.image}
-            alt={post.title[lang as Lang]}
+            src={post.image || "/images/services/cataract-surgery.jpg"}
+            alt={title}
             fill
             className="object-cover"
             priority
@@ -91,7 +94,7 @@ export default async function BlogPostPage({
         </div>
 
         {/* Emergency Callout if present */}
-        {post.emergencyCallout && (
+        {emergencyCallout && (
           <div className="mb-8 rounded-2xl border border-rose-200 bg-rose-50/90 p-5 text-rose-950 flex items-start gap-3 shadow-xs">
             <ShieldAlert size={22} className="mt-0.5 shrink-0 text-rose-600" />
             <div>
@@ -99,7 +102,7 @@ export default async function BlogPostPage({
                 {isEn ? "Urgent Medical Alert" : "জরুরি মেডিকেল সতর্কতা"}
               </h3>
               <p className="mt-1 text-[13.5px] leading-relaxed text-rose-800">
-                {post.emergencyCallout[lang as Lang]}
+                {emergencyCallout}
               </p>
             </div>
           </div>

@@ -15,6 +15,7 @@ import {
   getLiveReviews,
   getLiveVideos,
   getLiveGallery,
+  getLiveChambers,
 } from "@/lib/data/live";
 
 export const dynamic = "force-dynamic";
@@ -24,11 +25,12 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
 
-  const [services, reviews, videos, gallery] = await Promise.all([
+  const [services, reviews, videos, gallery, chambers] = await Promise.all([
     getLiveServices(),
     getLiveReviews(),
     getLiveVideos(),
     getLiveGallery(),
+    getLiveChambers(),
   ]);
 
   const previewGallery = gallery.slice(0, 4).map((g) => ({
@@ -47,7 +49,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <ServicesTeaser lang={lang} servicesList={services} />
       <VideoTeaser lang={lang} videosList={videos} />
       <GalleryAndSocial lang={lang} previewItems={previewGallery} />
-      <ChambersTeaser lang={lang} />
+      <ChambersTeaser lang={lang} chambersList={chambers} />
       <FinalCTA lang={lang} />
     </>
   );

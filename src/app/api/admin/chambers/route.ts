@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { staticChambers } from "@/lib/data/live";
+
+function revalidateChambers() {
+  try {
+    revalidatePath("/[lang]/chambers", "page");
+    revalidatePath("/", "layout");
+  } catch (e) {
+    // ignore
+  }
+}
 
 export async function GET() {
   const supabase = createServerClient();
@@ -31,6 +41,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 
+    revalidateChambers();
     return NextResponse.json({ success: true, data });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
@@ -53,6 +64,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 
+    revalidateChambers();
     return NextResponse.json({ success: true, data });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
@@ -80,6 +92,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 });
     }
 
+    revalidateChambers();
     return NextResponse.json({ success: true });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

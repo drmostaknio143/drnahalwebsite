@@ -16,6 +16,7 @@ import {
   Clock,
 } from "lucide-react";
 import type { BlogPostRecord, BlogSectionItem } from "@/lib/supabase/types";
+import ImageUploadPicker from "@/components/admin/ImageUploadPicker";
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<BlogPostRecord[]>([]);
@@ -89,11 +90,28 @@ export default function AdminBlogsPage() {
     const isEdit = !!editingItem.id;
     const method = isEdit ? "PUT" : "POST";
 
+    // Auto-clean slug and fill empty fallbacks
+    const cleanSlug = (editingItem.slug || editingItem.title_en || "article")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    const payload = {
+      ...editingItem,
+      slug: cleanSlug,
+      title_en: editingItem.title_en?.trim() || "",
+      title_bn: editingItem.title_bn?.trim() || editingItem.title_en?.trim() || "",
+      meta_description_en: editingItem.meta_description_en?.trim() || "",
+      meta_description_bn: editingItem.meta_description_bn?.trim() || editingItem.meta_description_en?.trim() || "",
+      image_url: editingItem.image_url?.trim() || "/images/services/cataract-surgery.jpg",
+    };
+
     try {
       const res = await fetch("/api/admin/blogs", {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editingItem),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success) {
@@ -372,6 +390,19 @@ export default function AdminBlogsPage() {
             )}
 
             <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-4">
+              {/* Featured Cover Photo */}
+              <div className="p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+                <ImageUploadPicker
+                  value={editingItem.image_url || "/images/services/cataract-surgery.jpg"}
+                  onChange={(url) =>
+                    setEditingItem({ ...editingItem, image_url: url })
+                  }
+                  folder="blogs"
+                  label="Article Featured Cover Image"
+                  required
+                />
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-900/50 border border-slate-800/80">
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1">

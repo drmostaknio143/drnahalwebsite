@@ -123,7 +123,7 @@ export default function BlogIndexView({
                   : "glass text-ink-muted hover:text-ink"
               }`}
             >
-              {t.all} ({blogPosts.length})
+              {t.all} ({blogs.length})
             </button>
             {categories.map((cat) => (
               <button
@@ -165,21 +165,21 @@ export default function BlogIndexView({
                 <div>
                   <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-100">
                     <Image
-                      src={post.image}
-                      alt={post.title[lang]}
+                      src={post.image || "/images/services/cataract-surgery.jpg"}
+                      alt={post.title?.[lang] || post.title?.en || "Article"}
                       fill
                       className="object-cover transition duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     <span className="glass-badge absolute bottom-3 left-3 rounded-md px-2.5 py-1 text-[11px] font-bold text-white">
-                      {post.category[lang]}
+                      {post.category?.[lang] || post.category?.en || "Eye Care"}
                     </span>
                   </div>
 
                   <div className="mt-4 flex items-center gap-3 text-[12px] text-ink-muted">
                     <span className="flex items-center gap-1">
                       <Clock size={12} />
-                      <span>{post.readTime[lang]}</span>
+                      <span>{post.readTime?.[lang] || post.readTime?.en || "5 min read"}</span>
                     </span>
                     <span>·</span>
                     <span className="flex items-center gap-1">
@@ -189,11 +189,11 @@ export default function BlogIndexView({
                   </div>
 
                   <h3 className="mt-2.5 font-display text-[18px] font-bold leading-snug text-ink transition group-hover:text-accent">
-                    {post.title[lang]}
+                    {post.title?.[lang] || post.title?.en}
                   </h3>
 
                   <p className="mt-2 line-clamp-3 text-[13.5px] leading-relaxed text-ink-muted">
-                    {post.metaDescription[lang]}
+                    {post.metaDescription?.[lang] || post.metaDescription?.en}
                   </p>
                 </div>
 
@@ -202,7 +202,7 @@ export default function BlogIndexView({
                     {t.byDoctor}
                   </span>
                   <Link
-                    href={`/${lang}/blog/${post.slug}`}
+                    href={`/${lang}/blog/${encodeURIComponent((post.slug || "").trim())}`}
                     className="flex items-center gap-1 text-[13px] font-bold text-accent group-hover:translate-x-1 transition"
                   >
                     <span>{t.readArticle}</span>

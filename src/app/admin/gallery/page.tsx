@@ -12,6 +12,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import type { GalleryItemRecord } from "@/lib/supabase/types";
+import ImageUploadPicker from "@/components/admin/ImageUploadPicker";
 
 export default function AdminGalleryPage() {
   const [items, setItems] = useState<GalleryItemRecord[]>([]);
@@ -44,7 +45,7 @@ export default function AdminGalleryPage() {
 
   const handleAddNew = () => {
     setEditingItem({
-      src: "/images/hero/seq-1.jpeg",
+      src: "",
       category: "Chambers",
       caption_en: "",
       caption_bn: "",
@@ -227,7 +228,7 @@ export default function AdminGalleryPage() {
       {/* Edit Modal */}
       {editModalOpen && editingItem && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#0b1220] border border-slate-800 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden my-8">
+          <div className="bg-[#0b1220] border border-slate-800 rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden my-8">
             <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
               <div className="flex items-center gap-2.5">
                 <ImageIcon className="w-5 h-5 text-emerald-400" />
@@ -275,21 +276,16 @@ export default function AdminGalleryPage() {
             )}
 
             <form onSubmit={handleSave} className="p-6 space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Image Path / URL *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={editingItem.src || ""}
-                  onChange={(e) =>
-                    setEditingItem({ ...editingItem, src: e.target.value })
-                  }
-                  placeholder="/images/hero/seq-1.jpeg"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white"
-                />
-              </div>
+              {/* Photo Upload / Picker */}
+              <ImageUploadPicker
+                value={editingItem.src || ""}
+                onChange={(url) =>
+                  setEditingItem({ ...editingItem, src: url })
+                }
+                folder="gallery"
+                label="Practice Photo / Image"
+                required
+              />
 
               <div className="grid grid-cols-2 gap-4">
                 <div>

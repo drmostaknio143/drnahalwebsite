@@ -5,8 +5,24 @@ import { practice } from "@/lib/i18n/nav";
 import { homeDict } from "@/lib/i18n/home";
 import { Lang } from "@/lib/i18n/types";
 
-export default function ChambersTeaser({ lang }: { lang: Lang }) {
+import type { Chamber } from "@/lib/supabase/types";
+
+export default function ChambersTeaser({
+  lang,
+  chambersList,
+}: {
+  lang: Lang;
+  chambersList?: Chamber[];
+}) {
   const t = homeDict[lang].chambers;
+  const chambers =
+    chambersList && chambersList.length > 0
+      ? chambersList.map((c) => ({
+          name: { en: c.name_en, bn: c.name_bn },
+          hours: { en: c.hours_en, bn: c.hours_bn },
+        }))
+      : practice.chambers;
+
   return (
     <div className="band-white w-full py-16">
       <div className="mx-auto max-w-[1180px] px-6">
@@ -18,11 +34,11 @@ export default function ChambersTeaser({ lang }: { lang: Lang }) {
         </Reveal>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {practice.chambers.map((c, i) => (
-            <Reveal key={c.name.en} delay={i * 80}>
+          {chambers.map((c, i) => (
+            <Reveal key={c.name.en || i} delay={i * 80}>
               <div className="glass h-full rounded-2xl p-5 text-center transition-transform duration-300 hover:-translate-y-1.5">
-                <h3 className="font-display text-[15px] font-bold">{c.name[lang]}</h3>
-                <p className="mt-1.5 text-[13px] text-ink-muted">{c.hours[lang]}</p>
+                <h3 className="font-display text-[15px] font-bold">{c.name[lang] || c.name.en}</h3>
+                <p className="mt-1.5 text-[13px] text-ink-muted">{c.hours[lang] || c.hours.en}</p>
               </div>
             </Reveal>
           ))}

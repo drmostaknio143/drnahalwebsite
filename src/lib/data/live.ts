@@ -1,4 +1,5 @@
-import { supabase } from "@/lib/supabase/client";
+import { supabase as clientSupabase } from "@/lib/supabase/client";
+import { createServerClient } from "@/lib/supabase/server";
 import { services as staticServices, type Service as FrontendService } from "@/lib/data/services";
 import { conditions as staticConditions, type Condition as FrontendCondition } from "@/lib/data/conditions";
 import { faqs as staticFaqs, type FAQItem } from "@/lib/data/faq";
@@ -18,6 +19,13 @@ import type {
   PracticeSetting,
   Chamber,
 } from "@/lib/supabase/types";
+
+function getSupabase() {
+  if (typeof window === "undefined") {
+    return createServerClient();
+  }
+  return clientSupabase;
+}
 
 // Static chambers fallback
 export const staticChambers: Chamber[] = [
@@ -68,6 +76,7 @@ export const staticChambers: Chamber[] = [
 /** Fetch services from Supabase or fallback to static services */
 export async function getLiveServices(): Promise<FrontendService[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("services")
       .select("*")
@@ -79,30 +88,31 @@ export async function getLiveServices(): Promise<FrontendService[]> {
     }
 
     return (data as DbService[]).map((row) => ({
-      slug: row.slug,
-      name: { en: row.name_en, bn: row.name_bn },
-      short: { en: row.short_en, bn: row.short_bn },
-      image: row.image_url || "/images/services/cataract-surgery.jpg",
-      stat: row.stat_label_en
+      slug: (row.slug || "").trim(),
+      name: { en: row.name_en?.trim() || row.name_bn?.trim() || "Eye Service", bn: row.name_bn?.trim() || row.name_en?.trim() || "চক্ষু সেবা" },
+      short: { en: row.short_en?.trim() || row.short_bn?.trim() || "", bn: row.short_bn?.trim() || row.short_en?.trim() || "" },
+      image: row.image_url?.trim() || "/images/services/cataract-surgery.jpg",
+      stat: row.stat_label_en || row.stat_label_bn
         ? {
-            label: { en: row.stat_label_en, bn: row.stat_label_bn || row.stat_label_en },
+            label: { en: row.stat_label_en || row.stat_label_bn || "", bn: row.stat_label_bn || row.stat_label_en || "" },
             value: { en: row.stat_val_en || "", bn: row.stat_val_bn || row.stat_val_en || "" },
           }
         : undefined,
       tags: { en: row.tags_en || [], bn: row.tags_bn || [] },
       detail: {
-        intro: { en: row.intro_en, bn: row.intro_bn },
+        intro: { en: row.intro_en?.trim() || row.intro_bn?.trim() || "", bn: row.intro_bn?.trim() || row.intro_en?.trim() || "" },
         whoLabel: { en: row.who_label_en || "Who needs it", bn: row.who_label_bn || "কার প্রয়োজন হতে পারে" },
-        who: { en: row.who_en, bn: row.who_bn },
+        who: { en: row.who_en || row.who_bn || "", bn: row.who_bn || row.who_en || "" },
         howLabel: { en: row.how_label_en || "How it works", bn: row.how_label_bn || "কীভাবে হয়" },
-        how: { en: row.how_en || "", bn: row.how_bn || "" },
+        how: { en: row.how_en || row.how_bn || "", bn: row.how_bn || row.how_en || "" },
         steps: row.steps || [],
         noteLabel: row.note_label_en ? { en: row.note_label_en, bn: row.note_label_bn || "" } : undefined,
         note: row.note_en ? { en: row.note_en, bn: row.note_bn || "" } : undefined,
         cta: { en: row.cta_en || "Book an Appointment", bn: row.cta_bn || "অ্যাপয়েন্টমেন্ট নিন" },
       },
     }));
-  } catch {
+  } catch (err) {
+    console.error("Failed to load live services:", err);
     return staticServices;
   }
 }
@@ -110,6 +120,7 @@ export async function getLiveServices(): Promise<FrontendService[]> {
 /** Fetch conditions from Supabase or fallback to static conditions */
 export async function getLiveConditions(): Promise<FrontendCondition[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("conditions")
       .select("*")
@@ -121,21 +132,22 @@ export async function getLiveConditions(): Promise<FrontendCondition[]> {
     }
 
     return (data as DbCondition[]).map((row) => ({
-      slug: row.slug,
-      name: { en: row.name_en, bn: row.name_bn },
-      tier: row.tier,
-      category: { en: row.category_en, bn: row.category_bn },
-      image: row.image_url || "/images/2. Conditions_Images/1. Cataract.png",
+      slug: (row.slug || "").trim(),
+      name: { en: row.name_en?.trim() || row.name_bn?.trim() || "Eye Condition", bn: row.name_bn?.trim() || row.name_en?.trim() || "চক্ষু সমস্যা" },
+      tier: row.tier || "primary",
+      category: { en: row.category_en?.trim() || row.category_bn?.trim() || "Retina", bn: row.category_bn?.trim() || row.category_en?.trim() || "রেটিনা" },
+      image: row.image_url?.trim() || "/images/2. Conditions_Images/1. Cataract.png",
       tags: { en: row.tags_en || [], bn: row.tags_bn || [] },
-      whatIsIt: { en: row.what_is_it_en, bn: row.what_is_it_bn },
-      whyItHappens: { en: row.why_it_happens_en, bn: row.why_it_happens_bn },
-      howTreated: { en: row.how_treated_en, bn: row.how_treated_bn },
-      emergencyNote: row.emergency_note_en
-        ? { en: row.emergency_note_en, bn: row.emergency_note_bn || "" }
+      whatIsIt: { en: row.what_is_it_en?.trim() || row.what_is_it_bn?.trim() || "", bn: row.what_is_it_bn?.trim() || row.what_is_it_en?.trim() || "" },
+      whyItHappens: { en: row.why_it_happens_en?.trim() || row.why_it_happens_bn?.trim() || "", bn: row.why_it_happens_bn?.trim() || row.why_it_happens_en?.trim() || "" },
+      howTreated: { en: row.how_treated_en?.trim() || row.how_treated_bn?.trim() || "", bn: row.how_treated_bn?.trim() || row.how_treated_en?.trim() || "" },
+      emergencyNote: row.emergency_note_en || row.emergency_note_bn
+        ? { en: row.emergency_note_en || row.emergency_note_bn || "", bn: row.emergency_note_bn || row.emergency_note_en || "" }
         : undefined,
       relatedServiceSlug: row.related_service_slug || "cataract-surgery",
     }));
-  } catch {
+  } catch (err) {
+    console.error("Failed to load live conditions:", err);
     return staticConditions;
   }
 }
@@ -143,6 +155,7 @@ export async function getLiveConditions(): Promise<FrontendCondition[]> {
 /** Fetch chambers from Supabase or fallback */
 export async function getLiveChambers(): Promise<Chamber[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("chambers")
       .select("*")
@@ -153,8 +166,18 @@ export async function getLiveChambers(): Promise<Chamber[]> {
       return staticChambers;
     }
 
-    return data as Chamber[];
-  } catch {
+    return (data as Chamber[]).map((row) => ({
+      ...row,
+      slug: (row.slug || "").trim(),
+      name_en: row.name_en?.trim() || row.name_bn?.trim() || "Chamber",
+      name_bn: row.name_bn?.trim() || row.name_en?.trim() || "চেম্বার",
+      location_en: row.location_en?.trim() || row.location_bn?.trim() || "",
+      location_bn: row.location_bn?.trim() || row.location_en?.trim() || "",
+      hours_en: row.hours_en?.trim() || row.hours_bn?.trim() || "",
+      hours_bn: row.hours_bn?.trim() || row.hours_en?.trim() || "",
+    }));
+  } catch (err) {
+    console.error("Failed to load live chambers:", err);
     return staticChambers;
   }
 }
@@ -162,6 +185,7 @@ export async function getLiveChambers(): Promise<Chamber[]> {
 /** Fetch FAQs from Supabase or fallback */
 export async function getLiveFaqs(): Promise<FAQItem[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("faqs")
       .select("*")
@@ -174,11 +198,12 @@ export async function getLiveFaqs(): Promise<FAQItem[]> {
 
     return (data as FAQRecord[]).map((row) => ({
       id: row.faq_code,
-      category: { en: row.category_en, bn: row.category_bn },
-      question: { en: row.question_en, bn: row.question_bn },
-      answer: { en: row.answer_en, bn: row.answer_bn },
+      category: { en: row.category_en?.trim() || row.category_bn?.trim() || "General", bn: row.category_bn?.trim() || row.category_en?.trim() || "সাধারণ" },
+      question: { en: row.question_en?.trim() || row.question_bn?.trim() || "", bn: row.question_bn?.trim() || row.question_en?.trim() || "" },
+      answer: { en: row.answer_en?.trim() || row.answer_bn?.trim() || "", bn: row.answer_bn?.trim() || row.answer_en?.trim() || "" },
     }));
-  } catch {
+  } catch (err) {
+    console.error("Failed to load live faqs:", err);
     return staticFaqs;
   }
 }
@@ -186,6 +211,7 @@ export async function getLiveFaqs(): Promise<FAQItem[]> {
 /** Fetch Videos from Supabase or fallback */
 export async function getLiveVideos(): Promise<FrontendVideo[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("videos")
       .select("*")
@@ -200,11 +226,12 @@ export async function getLiveVideos(): Promise<FrontendVideo[]> {
       url: row.url,
       youtubeId: row.youtube_id,
       category: row.category as any,
-      title: { en: row.title_en, bn: row.title_bn },
-      tag: { en: row.tag_en, bn: row.tag_bn },
-      description: row.description_en ? { en: row.description_en, bn: row.description_bn || "" } : undefined,
+      title: { en: row.title_en?.trim() || row.title_bn?.trim() || "Video", bn: row.title_bn?.trim() || row.title_en?.trim() || "ভিডিও" },
+      tag: { en: row.tag_en?.trim() || row.tag_bn?.trim() || "Ophthalmology", bn: row.tag_bn?.trim() || row.tag_en?.trim() || "চক্ষুবিজ্ঞান" },
+      description: row.description_en || row.description_bn ? { en: row.description_en || row.description_bn || "", bn: row.description_bn || row.description_en || "" } : undefined,
     }));
-  } catch {
+  } catch (err) {
+    console.error("Failed to load live videos:", err);
     return staticVideos;
   }
 }
@@ -212,6 +239,7 @@ export async function getLiveVideos(): Promise<FrontendVideo[]> {
 /** Fetch Gallery items from Supabase or fallback */
 export async function getLiveGallery(): Promise<FrontendGalleryItem[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("gallery_items")
       .select("*")
@@ -226,10 +254,11 @@ export async function getLiveGallery(): Promise<FrontendGalleryItem[]> {
       id: row.id || `gal-${row.order_index}`,
       src: row.src,
       category: row.category,
-      caption: { en: row.caption_en, bn: row.caption_bn },
+      caption: { en: row.caption_en?.trim() || row.caption_bn?.trim() || "", bn: row.caption_bn?.trim() || row.caption_en?.trim() || "" },
       chamber: row.chamber_name_en ? { en: row.chamber_name_en, bn: row.chamber_name_bn || "" } : undefined,
     }));
-  } catch {
+  } catch (err) {
+    console.error("Failed to load live gallery:", err);
     return staticGallery;
   }
 }
@@ -237,6 +266,7 @@ export async function getLiveGallery(): Promise<FrontendGalleryItem[]> {
 /** Fetch Blog Posts from Supabase or fallback */
 export async function getLiveBlogs(): Promise<FrontendBlogPost[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("blog_posts")
       .select("*")
@@ -247,59 +277,88 @@ export async function getLiveBlogs(): Promise<FrontendBlogPost[]> {
       return staticBlogs;
     }
 
-    return (data as BlogPostRecord[]).map((row) => ({
-      slug: row.slug,
-      title: { en: row.title_en, bn: row.title_bn },
-      metaDescription: { en: row.meta_description_en, bn: row.meta_description_bn },
-      category: { en: row.category_en, bn: row.category_bn },
-      readTime: { en: row.read_time_en, bn: row.read_time_bn },
-      date: row.publish_date,
-      image: row.image_url || "/images/services/cataract-surgery.jpg",
-      sections: row.sections || [],
-      emergencyCallout: row.emergency_callout_en
-        ? { en: row.emergency_callout_en, bn: row.emergency_callout_bn || "" }
-        : undefined,
-      relatedServiceSlug: row.related_service_slug,
-      relatedConditionSlug: row.related_condition_slug,
-    }));
-  } catch {
+    return (data as BlogPostRecord[]).map((row) => {
+      const enTitle = row.title_en?.trim() || row.title_bn?.trim() || "Educational Article";
+      const bnTitle = row.title_bn?.trim() || row.title_en?.trim() || "স্বাস্থ্য নিবন্ধ";
+      const enDesc = row.meta_description_en?.trim() || row.meta_description_bn?.trim() || "";
+      const bnDesc = row.meta_description_bn?.trim() || row.meta_description_en?.trim() || "";
+      const enCat = row.category_en?.trim() || row.category_bn?.trim() || "Eye Care";
+      const bnCat = row.category_bn?.trim() || row.category_en?.trim() || "চক্ষু সেবা";
+      const enRead = row.read_time_en?.trim() || "5 min read";
+      const bnRead = row.read_time_bn?.trim() || "৫ মিনিট পাঠ";
+
+      return {
+        slug: (row.slug || "").trim(),
+        title: { en: enTitle, bn: bnTitle },
+        metaDescription: { en: enDesc, bn: bnDesc },
+        category: { en: enCat, bn: bnCat },
+        readTime: { en: enRead, bn: bnRead },
+        date: row.publish_date || new Date().toISOString().split("T")[0],
+        image: row.image_url?.trim() || "/images/services/cataract-surgery.jpg",
+        sections: row.sections || [],
+        emergencyCallout:
+          row.emergency_callout_en || row.emergency_callout_bn
+            ? {
+                en: row.emergency_callout_en || row.emergency_callout_bn || "",
+                bn: row.emergency_callout_bn || row.emergency_callout_en || "",
+              }
+            : undefined,
+        relatedServiceSlug: row.related_service_slug,
+        relatedConditionSlug: row.related_condition_slug,
+      };
+    });
+  } catch (err) {
+    console.error("Failed to load live blogs:", err);
     return staticBlogs;
   }
 }
 
 /** Fetch a single blog post by slug from Supabase or static fallback */
 export async function getLiveBlogBySlug(slug: string): Promise<FrontendBlogPost | null> {
+  const cleanSlug = decodeURIComponent(slug || "").trim();
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("blog_posts")
       .select("*")
-      .eq("slug", slug)
+      .or(`slug.eq."${cleanSlug}",slug.ilike."${cleanSlug}%"`)
       .eq("is_published", true)
-      .single();
+      .limit(1);
 
-    if (!error && data) {
-      const row = data as BlogPostRecord;
+    if (!error && data && data.length > 0) {
+      const row = data[0] as BlogPostRecord;
+      const enTitle = row.title_en?.trim() || row.title_bn?.trim() || "Educational Article";
+      const bnTitle = row.title_bn?.trim() || row.title_en?.trim() || "স্বাস্থ্য নিবন্ধ";
+      const enDesc = row.meta_description_en?.trim() || row.meta_description_bn?.trim() || "";
+      const bnDesc = row.meta_description_bn?.trim() || row.meta_description_en?.trim() || "";
+      const enCat = row.category_en?.trim() || row.category_bn?.trim() || "Eye Care";
+      const bnCat = row.category_bn?.trim() || row.category_en?.trim() || "চক্ষু সেবা";
+
       return {
-        slug: row.slug,
-        title: { en: row.title_en, bn: row.title_bn },
-        metaDescription: { en: row.meta_description_en, bn: row.meta_description_bn },
-        category: { en: row.category_en, bn: row.category_bn },
-        readTime: { en: row.read_time_en, bn: row.read_time_bn },
+        slug: (row.slug || cleanSlug).trim(),
+        title: { en: enTitle, bn: bnTitle },
+        metaDescription: { en: enDesc, bn: bnDesc },
+        category: { en: enCat, bn: bnCat },
+        readTime: { en: row.read_time_en?.trim() || "5 min read", bn: row.read_time_bn?.trim() || "৫ মিনিট পাঠ" },
         date: row.publish_date,
-        image: row.image_url || "/images/services/cataract-surgery.jpg",
+        image: row.image_url?.trim() || "/images/services/cataract-surgery.jpg",
         sections: row.sections || [],
-        emergencyCallout: row.emergency_callout_en
-          ? { en: row.emergency_callout_en, bn: row.emergency_callout_bn || "" }
-          : undefined,
+        emergencyCallout:
+          row.emergency_callout_en || row.emergency_callout_bn
+            ? {
+                en: row.emergency_callout_en || row.emergency_callout_bn || "",
+                bn: row.emergency_callout_bn || row.emergency_callout_en || "",
+              }
+            : undefined,
         relatedServiceSlug: row.related_service_slug,
         relatedConditionSlug: row.related_condition_slug,
       };
     }
-  } catch {
-    // fallback
+  } catch (err) {
+    console.error("Error fetching live blog by slug:", err);
   }
 
-  const found = staticBlogs.find((b) => b.slug === slug);
+  const found = staticBlogs.find((b) => b.slug.trim().toLowerCase() === cleanSlug.toLowerCase());
   return found || null;
 }
 
@@ -307,6 +366,7 @@ export async function getLiveBlogBySlug(slug: string): Promise<FrontendBlogPost 
 /** Fetch Reviews from Supabase or fallback */
 export async function getLiveReviews(): Promise<any[]> {
   try {
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
